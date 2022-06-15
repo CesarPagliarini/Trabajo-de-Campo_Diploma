@@ -1,0 +1,256 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+}
+
+.box p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.box ul, .box ol{
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+body{
+    background-color: #f2f2f2;
+}
+
+/*Estilos a la cabecera*/
+
+header{
+    width: 1212px;
+    height: 140px;
+    background-color: #232828;
+    margin: 0px auto;
+}
+
+#logotipo h1{
+    display: block;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: normal;
+    color: #42a096;
+    float: left;
+    margin-top: 35px;
+    margin-left: 20px;
+}
+
+#logotipo img{
+    display: block;
+    width: 80px;
+    float: left;
+    margin-top: 20px;
+}
+
+#logotipo{
+    width: 45%;
+    height: 130px;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+/* Estilos barra de navegacion */
+
+nav{
+    width: 1250px;
+    height: 40px;
+    margin: 0 auto;
+    background-color: #1b1e1f;
+    border: 1px solid #333333;
+    box-shadow: 0px 33px 22px gray;
+    font-size: 15px;
+    /*margin-bottom: 145px;*/
+}
+
+nav > ul{
+    list-style: none;
+    text-decoration: none;
+}
+
+nav > ul > li{
+    line-height: 40px;
+    float: left;
+}
+
+nav > ul > li > a{
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    color:  #d1d4d6;
+}
+
+nav > ul > li > a:hover{
+    background:  #2ba977;
+    box-shadow: 0px 0px 5px #333333 inset;
+    color: white;
+    transition: 300ms;
+}
+
+nav > ul > li > ul{
+    display: none;
+    position: absolute;
+    color: white;
+    text-align: left;
+    width: 160px;
+    box-shadow: 0px 2px 2px grey;
+}
+
+nav > ul > li:hover > ul{
+    display: block;
+    color: white;
+    margin: 0px;
+    list-style: none;
+}
+
+nav > ul > li:hover > ul > li{
+    background-color: #f2f1f0;
+    border-bottom: 1px solid #d6d6d6;
+    padding: 8px;
+    line-height: 25px;
+    font-size: 13px;
+    transition: all 300ms;
+}
+
+nav > ul > li:hover > ul > li a{
+    color: #666;   
+}
+
+nav > ul > li:hover > ul > li:hover{
+    background-color: #1f7e58;   
+}
+
+nav > ul > li:hover > ul > li:hover a{
+    color: white;  
+    display: block; 
+}
+
+/* Efecto 3d de la barra*/
+
+.barra{
+    width: 1250px;
+    margin: 0 auto;
+}
+
+.esquina-izquierda{
+    display: block;
+    border-left: 20px solid transparent;
+    border-top: 10px solid #2b2f30;
+    float: left;
+}
+
+
+.esquina-derecha{
+    display: block;
+    border-right: 20px solid transparent;
+    border-top: 10px solid #2b2f30;
+    float: right;
+}
+
+.relleno-barra{
+    display: block;
+    width: 1210px;
+    height: 10px;
+    background: #2b2f30;
+    float: left;
+}
+
+
+/* Estilos del contenido central */
+
+#content{
+    width: 1180px;
+    min-height: 930px;
+    margin: 0px auto;
+    margin-bottom: 30px;
+    margin-top: 40px
+}
+
+.box{
+    background: white;
+    width: 100%;
+    min-height: 930px;
+    padding: 20px;
+    border: 1px solid #d1d4d6;
+    border-radius: 2px;
+    margin: 0px auto;
+}
+
+.box form{
+    width: 40%;
+}
+
+.box form input,
+.box form label{
+    display: block;
+    padding: 5px;
+    padding-left: 0px;
+}
+
+.box form input[type="text"],
+.box form input[type="email"],
+.box form input[type="password"],
+.box form textarea,
+.box form select{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.box form select{
+    width: 100px;
+    padding: 5px;
+}
+
+.box form input[type="submit"],
+.box form input[type="button"],
+.box form button{
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #2ba977;
+    border: 1px solid black;
+    color: white;
+    transition: 300ms all;
+}
+
+.rojo{
+    color: red;
+    box-shadow: 0px 0px 4px black;
+}
+
+.message{
+    padding: 20px;
+    background: #1f7e58;
+    color: white;
+}
+
+.box form input[type="submit"]:hover,
+.box form input[type="button"]:hover,
+.box form button:hover{
+    cursor: pointer;
+    background: #1f7e58;
+}
+
+.title{
+    color: #444;
+    letter-spacing: 1px;
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+/* Estilos del footer */
+
+footer{
+    width: 90%;
+    background-color: #1b1e1f;
+    border: 1px solid #333333;
+    color: #d1d4d6;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 0px 0px 20px gray;
+    margin: 0px auto;
+}
