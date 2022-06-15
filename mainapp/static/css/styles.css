@@ -31,7 +31,7 @@ header{
 #logotipo h1{
     display: block;
     letter-spacing: 2px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/                  
     font-weight: normal;
     color: #42a096;
     float: left;
@@ -39,12 +39,12 @@ header{
     margin-left: 20px;
 }
 
-#logotipo img{
+/*#logotipo img{
     display: block;
     width: 80px;
     float: left;
     margin-top: 20px;
-}
+}*/
 
 #logotipo{
     width: 45%;
