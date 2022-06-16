@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Page
-from django.contrib.auth.decorators import login_required           # exporta la funcion que atenticas previuo a entrar a la url
+from django.contrib.auth.decorators import login_required           # exporta la funcion que atentica previo a entrar a la url
 
 
 # Create your views here.

@@ -5,6 +5,7 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 
 class Page(models.Model):
+    orden = models.IntegerField(auto_created=False, verbose_name="Orden")
     title = models.CharField(max_length=50, verbose_name="Titulo")
     #content = models.TextField(verbose_name="Contenido")
     content = RichTextField(verbose_name="Contenido")

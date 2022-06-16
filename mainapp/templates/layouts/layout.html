@@ -22,15 +22,22 @@
     
     <nav>
         <ul>
-            <li>
-                <a href="{% url 'inicio' %}">Inicio</a>
-            </li>
             {% if user.email %}
                 {% for page in pages %}
                         <li>
                             <a href="{% url 'page' page.2 %}"> {{ page.1 }}</a>
                         </li>
                 {% endfor %}
+                <li>
+                    <a href="">Habitaciones</a>
+                    <ul>
+                        {% for category in categories %}
+                            <li>
+                                <a href="{% url 'category' category.0 %}"> {{ category.1 }}</a>
+                            </li>
+                        {% endfor %}  
+                    </ul>
+                </li>
                 <li>
                     <a href="{% url 'list_articles' %}">Articulos</a>
                     <ul>
@@ -40,16 +47,14 @@
                             </li>
                         {% endfor %}  
                     </ul>
+                    {% if user.is_superuser %}
+                        <li>
+                            <a href="">Registro</a>
+                        </li>
+                    {% endif %}
                     <li>
                         <a href="{% url 'logout' %}">Cerrar sesion</a>
                     </li>
-                </li>
-            {% else %}
-                <li>
-                    <a href="{% url 'register' %}">Registro</a>
-                </li>
-                <li>
-                    <a href="{% url 'login' %}">Login</a>
                 </li>
             {% endif %}
         </ul>
