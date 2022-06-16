@@ -47,14 +47,20 @@
                             </li>
                         {% endfor %}  
                     </ul>
-                    {% if user.is_superuser %}
+                </li>
+
+                <li>
+                    <a href="">Sesion</a>
+                    <ul>
+                        {% if user.is_superuser %}
+                            <li>
+                                <a href="{% url 'register' %}">Registro de usuarios</a>
+                            </li>
+                        {% endif %}
                         <li>
-                            <a href="">Registro</a>
+                            <a href="{% url 'logout' %}">Cerrar sesion</a>
                         </li>
-                    {% endif %}
-                    <li>
-                        <a href="{% url 'logout' %}">Cerrar sesion</a>
-                    </li>
+                    </ul>
                 </li>
             {% endif %}
         </ul>
