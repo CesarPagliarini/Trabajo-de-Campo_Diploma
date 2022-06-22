@@ -18,15 +18,15 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from mainapp import views
-from pages import views as page_views               # Renombrarlo para que no cree conflicto con la importacion de arrriba
+#from pages import views as page_views               # Renombrarlo para que no cree conflicto con la importacion de arrriba
 #import pages.views                                 # Otra forma de cargar las vistas   
 from django.conf import settings           
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainapp.urls')),
-    path('', include('pages.urls')),
-    path('', include('blog.urls')),
+    #path('', include('pages.urls')),
+    #path('', include('blog.urls')),
 ]
 
 # Ruta imagenes

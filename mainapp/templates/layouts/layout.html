@@ -23,32 +23,9 @@
     <nav>
         <ul>
             {% if user.is_active %}
-                {% for page in pages %}
-                        <li>
-                            <a href="{% url 'page' page.2 %}"> {{ page.1 }}</a>
-                        </li>
-                {% endfor %}
                 <li>
                     <a href="">Habitaciones</a>
-                    <ul>
-                        {% for category in categories %}
-                            <li>
-                                <a href="{% url 'category' category.0 %}"> {{ category.1 }}</a>
-                            </li>
-                        {% endfor %}  
-                    </ul>
                 </li>
-                <li>
-                    <a href="{% url 'list_articles' %}">Articulos</a>
-                    <ul>
-                        {% for category in categories %}
-                            <li>
-                                <a href="{% url 'category' category.0 %}"> {{ category.1 }}</a>
-                            </li>
-                        {% endfor %}  
-                    </ul>
-                </li>
-
                 <li>
                     <a href="">Sesion</a>
                     <ul>
@@ -73,14 +50,14 @@
 
     <div id="content">                                       <!--Bloque que sirve para dividir-->
         <div class="box">
-            {% block content %}                                  <!--Debe colocarse el mismo nombre que se coloco al id-->
+            {% block content %}                              <!--Debe colocarse el mismo nombre que se coloco al id-->
                 <!--Codigo que viene desde la template-->   
             {% endblock %}
         </div>
     </div>
 
     <footer>
-        Sistema de Gestión hotelera, plazas y servicios - {% now 'd/m/Y H:m:s' %}            <!--La H genera que la hora se muestre en formato de 24hs-->
+        Sistema de Gestión hotelera, plazas y servicios - {% now 'd/m/Y  H:i:s' %}            <!--La H genera que la hora se muestre en formato de 24hs-->
     </footer>
 
 </body>

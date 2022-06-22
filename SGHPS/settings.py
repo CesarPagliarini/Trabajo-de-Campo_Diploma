@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     'mainapp',
-    'pages.apps.PagesConfig',
-    'blog',
+    #'pages.apps.PagesConfig',
+    #'blog',
 ]
 
 MIDDLEWARE = [
@@ -66,8 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'pages.context_processors.get_pages',
-                'blog.processor.get_categories',
+                #'pages.context_processors.get_pages',
+                #'blog.processor.get_categories',
             ],
         },
     },
