@@ -13,12 +13,6 @@ def index(request):
         'title': 'Inicio'
     })
 
-def about(request):
-    
-    return render(request,'mainapp/about.html',{
-        'title': 'Sobre nosotros'
-    })
-
 def register_page(request):
     
     register_form = RegisterForm()
@@ -51,7 +45,7 @@ def login_page(request):
             return redirect('inicio')
         else:
             messages.warning(request, 'No te has podido identificar')
-        
+            
     return render(request, 'users/login.html', {
         'title': 'Identificate',
     })

@@ -22,7 +22,7 @@
     
     <nav>
         <ul>
-            {% if user.email %}
+            {% if user.is_active %}
                 {% for page in pages %}
                         <li>
                             <a href="{% url 'page' page.2 %}"> {{ page.1 }}</a>

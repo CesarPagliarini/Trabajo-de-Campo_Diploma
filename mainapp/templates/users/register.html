@@ -16,10 +16,10 @@
             {{register_form.as_p}}
         {% endcomment %}
 
-        {% for field in register_form%}
+        {% for field in register_form %}
             <label>{{field.label}}</label>
             {{field}}
-        {% endfor%}
+        {% endfor %}
         <input type="submit" value="Registrarse" />
     </form>   
 {% endblock %}
