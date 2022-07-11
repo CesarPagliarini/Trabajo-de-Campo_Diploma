@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from huespedes.views import formularioHuesped
 
 urlpatterns = [
-    
+  path('alta_huesped/', formularioHuesped, name="alta_huesped"),
 ]
