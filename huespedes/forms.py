@@ -1,20 +1,21 @@
 from unittest.util import _MAX_LENGTH
-from django import forms                                 # Importa el paquetes de forms desde la librería de Django
-from django.core import validators                       # Sirve para realizar una gran variedad de validaciones
+from django import forms                                  # Importa el paquetes de forms desde la librería de Django
+from django.core import validators                        # Sirve para realizar una gran variedad de validaciones
 
 class FormHuesped(forms.Form):
 
-    dni = forms.IntegerField(
-        label = "Dni",
+    dni = forms.CharField(
+        label = "Dni/Pasaporte",
         required=True,
-        widget= forms.NumberInput(
+        widget= forms.TextInput(
             attrs={
-                'placeholder': 'Introduzca el dni',
-            }
+                'placeholder': 'Introduzca el numero de dni/passaporte',
+              }
         ),
         validators=[
-            validators.MinLengthValidator(100000, 'El valor es demasiado pequeño'),     # Valida la longitud mínima del campo
-            validators.RegexValidator('^[0-9] *$', message='Solo se pueden ingresar numeros')   # Valida que solo se ingresen números
+            validators.MinLengthValidator(6, 'La longitud del campo es demasiado corta'),
+            validators.MaxLengthValidator(9, 'La longitud del capo excede el limite'),
+            validators.RegexValidator('^[A-Z0-9ñ ]*$', message='El nombre esta mal formado')            # Valida que solo se ingresen letras mayusculas,espacios ,la letra ñ y numeros del 0 al 9
         ]
     )
     
@@ -111,14 +112,11 @@ class FormHuesped(forms.Form):
     
     fecha_nacimiento = forms.DateField(                                    
         label = "Fecha de Nacimiento",
-        required=True,
+        required=True,                         
         widget= forms.DateInput(
+            format='%d/%m/%Y',                                                      # Indica el formato en el cual se debe cargar la fecha
             attrs={
-                'placeholder': 'Introduzca la fecha de nacimiento',
+                'placeholder': 'Introduzca la fecha de nacimiento - dd/mm/YYYY',
             }
         )  ,
-        validators=[
-            validators.MinLengthValidator(4, 'La fecha no respeta el formato'),
-            validators.RegexValidator('^[0-9\/]*$', message='La ciudad esta mal formateada')            # Valida que solo se ingresen números y el caracter separador /
-        ]
     )

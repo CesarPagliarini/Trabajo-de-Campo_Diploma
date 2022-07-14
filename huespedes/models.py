@@ -1,11 +1,10 @@
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Huesped(models.Model):
-    dni = models.IntegerField(validators=[MinValueValidator(1000000)], verbose_name='Dni')
+    dni = models.CharField(primary_key=True, max_length=9, verbose_name='Dni')
     nombre = models.CharField(max_length=25, verbose_name='Nombre')
     apellido = models.CharField(max_length=25, verbose_name='Apellido')
     fecha_nacimiento = models.DateField(verbose_name='Fecha_nacimiento')

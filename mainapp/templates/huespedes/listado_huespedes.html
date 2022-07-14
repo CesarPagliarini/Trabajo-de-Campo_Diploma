@@ -1,0 +1,34 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+   <h1 class="title">{{titulo}}</h1>
+
+    {% csrf_token %}
+    
+    <ul>
+        {% for huesped in huespedes %}  
+        <article class="huespedes-items">      
+            <br/>
+            Dni: {{huesped.dni}}    				    
+            <br/>
+            Nombre: {{huesped.nombre}} {{huesped.apellido}}
+            <br/>
+            Email: {{huesped.mail}}
+            <br/>
+            Telefono: {{huesped.telefono}}
+            <br/>
+            Fecha de Nacimiento: {{huesped.fecha_nacimiento}}
+            <br/>
+            Pais: {{huesped.pais}}
+            <br/>
+            <a href="{% url 'borrar_huesped' id=huesped.dni %}"> Eliminar </a>
+            <a href="{% url 'editar_huesped' id=huesped.dni %}"> Modificar </a>
+        </article>
+        {% endfor %}
+    </ul>
+      
+{% endblock %}
