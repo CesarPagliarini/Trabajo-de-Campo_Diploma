@@ -7,7 +7,14 @@
 {% block content %}
    <h1 class="title">{{titulo}}</h1>
 
-    {% csrf_token %}
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" placeholder="Ingrese dni,nombre o apellido" name="Buscar" value="{{ request.POST.Buscar }}" />
+        <button type="submit">Buscar</button>
+
+    </form> 
     
     <ul>
         {% for huesped in huespedes %}  
@@ -28,6 +35,9 @@
             <a href="{% url 'borrar_huesped' id=huesped.dni %}"> Eliminar </a>
             <a href="{% url 'editar_huesped' id=huesped.dni %}"> Modificar </a>
         </article>
+        {% empty %}
+            <br/>
+            <p class="empty">{{ vacio }}</p>
         {% endfor %}
     </ul>
       
