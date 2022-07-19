@@ -7,6 +7,38 @@ from django.db.models import Q                                        # Objeto n
 
 # Create your views here.
 
+
+# crear/modificar huesped
+
+@login_required(login_url="login")  # Requiere previa autenticación de usuario (login)
+def formulario_huesped(request, huesped_id=None):
+    try:
+        huesped = Huesped.objects.get(pk=huesped_id)
+    except Huesped.DoesNotExist:
+        huesped = None
+
+    if request.method == 'POST':  # Recibe los datos del formulario por metodo POST.
+        formulario = FormHuesped(request.POST, instance=huesped)
+
+        if formulario.is_valid():  # Verifica que los datos sean validos.
+            huesped = formulario.save()  # Guarda en la DB al objeto creado.
+            messages.success(request, 'Registro exitoso')
+            return redirect('listado_huespedes')  # Redirecciona al listado de Huespedes
+
+        else:
+            messages.success(request, 'Fracaso el registro')
+    else:
+        formulario = FormHuesped(instance=huesped)
+
+    return render(request, 'huespedes/alta_huesped.html', {
+        'form': formulario,
+        'titulo': 'Formulario de alta de huesped',
+        'cabecera': 'Alta de huesped'
+    })
+
+
+
+
 # Crear huespedes
 @login_required(login_url="login")                          # Requiere previa autenticación de usuario (login)
 def formularioHuesped(request):
