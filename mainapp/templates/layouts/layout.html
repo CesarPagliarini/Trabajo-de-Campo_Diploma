@@ -27,7 +27,15 @@
                     <a href="">Habitaciones</a>
                 </li>
                 <li>
-                    <a href="{% url 'listado_huespedes' %}">Huespedes</a>
+                    <a href="">Huespedes</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'listado_huespedes' %}">Listado de huespedes</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'alta_huesped' %}">Nuevo huesped</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="">Sesion</a>
