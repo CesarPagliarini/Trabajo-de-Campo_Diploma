@@ -28,10 +28,6 @@
             <br/>
             Telefono: {{huesped.telefono}}
             <br/>
-            Fecha de Nacimiento: {{huesped.fecha_nacimiento}}
-            <br/>
-            Pais: {{huesped.pais}}
-            <br/>
             <a href="{% url 'borrar_huesped' id=huesped.dni %}"> Eliminar </a>
             <a href="{% url 'editar_huesped' id=huesped.dni %}"> Modificar </a>
         </article>

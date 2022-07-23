@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'habitaciones',
+    'habitaciones.apps.HabitacionesConfig',
     'huespedes.apps.HuespedesConfig',
     'mainapp.apps.MainappConfig',
 ]

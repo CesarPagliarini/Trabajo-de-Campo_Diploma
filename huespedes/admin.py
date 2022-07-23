@@ -7,8 +7,8 @@ from .models import Huesped
 
 class HuespedesAdmin(admin.ModelAdmin):
     readonly_fields = ('user', 'created_at', 'updated_at')
-    search_fields = ('dni', 'apellido')                        # Buscador por dni y apellido
-    list_filter = ('dni', )                                 # Filtro por dni
+    search_fields = ('dni', 'apellido')                    # Buscador por dni y apellido
+    list_filter = ('dni', )                                # Filtro por dni
     list_display = ('dni', 'nombre', 'apellido')           # Agrega columnas
     
     def save_model(self, request, obj, form, change):

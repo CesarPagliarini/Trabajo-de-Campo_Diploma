@@ -10,7 +10,7 @@ from django.db.models import Q                                        # Objeto n
 # Crear huespedes
 @login_required(login_url="login")                          # Requiere previa autenticación de usuario (login)
 def formularioHuesped(request):
-
+    
     if request.method == 'POST':                            # Recibe los datos del formulario por metodo POST.
         formulario = FormHuesped(request.POST)
     
@@ -91,7 +91,7 @@ def editar_huesped(request, id):
     huesped = get_object_or_404(Huesped, pk=id)             # Verifica que el id que le pase exista. Si es TRUE, trae los datos de la DB
       
     formulario = FormHuesped(initial={'dni': huesped.dni, 'nombre': huesped.nombre, 'apellido': huesped.apellido, 'fecha_nacimiento': huesped.fecha_nacimiento, 'pais': huesped.pais, 'direccion': huesped.direccion, 'telefono': huesped.telefono, 'email': huesped.mail})
-    
+        
     if request.method == 'POST':                            # Recibe los datos del formulario por metodo POST.
         formulario = FormHuesped(request.POST)
     

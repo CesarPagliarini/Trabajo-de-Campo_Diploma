@@ -22,4 +22,4 @@ class Huesped(models.Model):
         db_table = 'huespedes' 
         
     def __str__(self):
-        return self.dni
+        return f"{self.dni} - {self.nombre} {self.apellido}"
