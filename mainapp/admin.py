@@ -11,11 +11,15 @@ class EstadiaAdmin(admin.ModelAdmin):
     readonly_fields = ['id_estadia', 'user', 'created_at', 'updated_at']
     search_fields = ('get_estado', 'fecha_inicio', 'fecha_fin')                
     list_filter = ('habitacion__nro_habitacion', )                                 # Filtro por nro_habitacion
-    list_display = ('id_estadia', 'get_estado', 'fecha_inicio', 'fecha_fin')       # Agrega columnas
+    list_display = ('id_estadia', 'get_habitacion', 'get_estado', 'fecha_inicio', 'fecha_fin', 'cantidad_dias')       # Agrega columnas
     
     def get_estado(self, obj):                                         # Obtiene la el valor del columna estado a traves de la ForeingKey
         return obj.estado.estado
     get_estado.short_description = 'estado'
+    
+    def get_habitacion(self, obj):                                     # Obtiene la el valor del columna nro_habitacion a traves de la ForeingKey
+        return obj.habitacion.nro_habitacion
+    get_habitacion.short_description = 'habitacion'
     
     def save_model(self, request, obj, form, change):
         if not obj.user_id:

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'habitaciones.apps.HabitacionesConfig',
     'huespedes.apps.HuespedesConfig',
     'mainapp.apps.MainappConfig',
+    'servicios.apps.ServiciosConfig'
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from pkg_resources import require
 from huespedes.models import Huesped
 from habitaciones.models import Habitacion
 

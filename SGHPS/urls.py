@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include('mainapp.urls')),
     path('', include('habitaciones.urls')),
     path('', include('huespedes.urls')),
+    path('', include('servicios.urls')),
 ]
 
 # Ruta imagenes
