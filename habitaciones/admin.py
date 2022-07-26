@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Habitacion, TipoHabitacion, EstadoHabitacion
+from habitaciones.models import Habitacion, TipoHabitacion, EstadoHabitacion
 
 class EstadoHabitacionAdmin(admin.ModelAdmin):
     readonly_fields = ['nro_estado']

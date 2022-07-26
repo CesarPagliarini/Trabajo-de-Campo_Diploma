@@ -14,7 +14,7 @@ class Huesped(models.Model):
     mail = models.EmailField(max_length=40, verbose_name='Email', default=None)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Creado')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Modificado')
-    user = models.ForeignKey(User, editable=False, verbose_name='Usuario', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, editable=False, verbose_name='Usuario', on_delete=models.CASCADE, default=1)
     
     class Meta:
         verbose_name = 'Huesped'

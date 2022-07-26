@@ -60,7 +60,7 @@ class FormHuesped(forms.Form):
         )  ,
         validators=[
             validators.MinLengthValidator(6, 'La dirección es demasiado corta'),
-            validators.RegexValidator('^[A-Za-z0-9ñ ]*$', message='El titulo esta mal formado')            # Valida que solo se ingresen números,letras,espacios y la letra ñ
+            validators.RegexValidator('^[A-Za-z0-9ñ. ]*$', message='La direccion esta mal formada')            # Valida que solo se ingresen números,letras,espacios y la letra ñ
         ]
     )
     
@@ -76,7 +76,7 @@ class FormHuesped(forms.Form):
         validators=[
             validators.MinLengthValidator(7, 'El teléfono es demasiado corta'),                            # Longitud mínima de caracteres
             validators.MaxLengthValidator(14, 'Se excede la cantidad máxima de dígitos'),                  # Longitud máxima de caracteres
-            validators.RegexValidator('^(\+)?[0-9]*$', message='El teléfono esta mal formado'),            # Valida que solo se ingresen números y el signo + (solo lo acepta al inicio).   
+            validators.RegexValidator('^(\+)?[0-9 ]*$', message='El teléfono esta mal formado'),            # Valida que solo se ingresen números y el signo + (solo lo acepta al inicio).   
         ]
     )
     

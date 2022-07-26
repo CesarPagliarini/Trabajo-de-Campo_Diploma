@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Estadia, Descuentos, EstadoEstadia, FormasPago, EstadosDecuentos
+from mainapp.models import Estadia, Descuentos, EstadoEstadia, FormasPago, EstadosDecuentos
 
 
 # Configuracion del menu
@@ -27,7 +27,7 @@ class EstadiaAdmin(admin.ModelAdmin):
         obj.save()                                                      # Guarda el objeto del usuario
        
 class DescuentoAdmin(admin.ModelAdmin):
-    readonly_fields = ['id_descuento']
+    readonly_fields = ['id_descuento', 'fecha_creacion', 'fecha_utilizacion']
     search_fields = ('id_descuento', 'estado', 'multiplicador') 
     list_filter = ('multiplicador', )         
     list_display = ('id_descuento', 'multiplicador', 'estado')         # Agrega columnas

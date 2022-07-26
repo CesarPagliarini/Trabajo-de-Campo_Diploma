@@ -1,7 +1,7 @@
 from pickle import OBJ
 from django.contrib import admin
 from gzip import READ
-from .models import Huesped
+from huespedes.models import Huesped
 
 # Configuracion extra
 
@@ -18,8 +18,6 @@ class HuespedesAdmin(admin.ModelAdmin):
         obj.save()                                          # Guarda el objeto del usuario
                                 
 
-         
-    
 # Register your models here.
 
 admin.site.register(Huesped, HuespedesAdmin)
