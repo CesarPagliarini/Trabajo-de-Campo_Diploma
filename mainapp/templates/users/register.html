@@ -5,21 +5,22 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{title}}</h1>
+    {% if perms.auth.usuario %}
+        <h1>{{title}}</h1>
 
-    {{register_form.errors}}
+        {{register_form.errors}}
+    
+        <form method="post" action="">
+            {% csrf_token %}
 
-    <form method="post" action="">
-        {% csrf_token %}
-
-        {% comment %}
-            {{register_form.as_p}}
-        {% endcomment %}
-
-        {% for field in register_form %}
-            <label>{{field.label}}</label>
-            {{field}}
-        {% endfor %}
-        <input type="submit" value="Registrarse" />
-    </form>   
+            {% for field in register_form %}
+                <label>{{field.label}}</label>
+                {{field}}
+            {% endfor %}
+            <input type="submit" value="Registrarse" />
+        </form>
+    {% else %}
+        <a href="{% url 'inicio' %}">No tiene autorizacion para esta seccion, click para regresar al inicio</a>
+    {% endif %}   
+        
 {% endblock %}

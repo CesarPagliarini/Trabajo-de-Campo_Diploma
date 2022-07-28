@@ -113,9 +113,9 @@ class FormHuesped(forms.Form):
     fecha_nacimiento = forms.DateField(                                    
         label = "Fecha de Nacimiento",
         required=True,                         
-        widget= forms.DateInput(
-            format='%d/%m/%Y',                                                      # Indica el formato en el cual se debe cargar la fecha
+        widget= forms.TextInput(
             attrs={
+                'type': 'date',
                 'placeholder': 'Introduzca la fecha de nacimiento - dd/mm/YYYY',
             }
         )  ,

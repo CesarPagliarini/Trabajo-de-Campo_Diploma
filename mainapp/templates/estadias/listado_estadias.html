@@ -1,0 +1,38 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+   <h1 class="title">{{titulo}}</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" placeholder="Ingrese dni,nombre o apellido" name="Buscar" value="{{ request.POST.Buscar }}" />
+        <button type="submit">Buscar</button>
+    
+    <ul>
+        {% for estadia in estadias %}  
+        <article class="estadias-items">      
+            <br/>
+            Estadia: {{estadia.id_estadia}}    				    
+            <br/>
+            Fecha inicio: {{estadia.fecha_inicio}} 
+            <br/>
+            Fecha fin: {{estadia.fecha_fin}}
+            <br/>
+            Cantidad de dias: {{estadia.cantidad_dias}}
+            <br/>
+            <a href="{% url 'borrar_estadia' id=estadia.id_estadia %}"> Eliminar </a>
+            <a href="{% url 'editar_estadia' id=estadia.id_estadia %}"> Modificar </a>
+        </article>
+        {% empty %}
+            <br/>
+            <p class="empty">{{ vacio }}</p>
+        {% endfor %}
+    </ul>
+      
+{% endblock %}

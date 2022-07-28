@@ -13,7 +13,7 @@ class EstadoEstadia(models.Model):
         verbose_name = 'Estado'
         verbose_name_plural = 'Estados'
         db_table = 'estados_estadia'
-        ordering = ['estado']
+        ordering = ['nro_estado']
         
     def __str__(self):
         return f"{self.nro_estado} - {self.estado}"
@@ -27,7 +27,7 @@ class FormasPago(models.Model):
         verbose_name = 'FormaPago'
         verbose_name_plural = 'FormasPago'
         db_table = 'forma_pago'
-        ordering = ['descripcion']
+        ordering = ['id_formaPago']
         
     def __str__(self):
         return f"{self.id_formaPago} - {self.descripcion}"
@@ -44,7 +44,7 @@ class Estadia(models.Model):
     forma_pago = models.ForeignKey(FormasPago, null=True, blank=True, editable=True, verbose_name='forma_pago', on_delete=models.CASCADE)
     estado = models.ForeignKey(EstadoEstadia, null=False, editable=True, verbose_name='estado', on_delete=models.CASCADE)
     habitacion = models.ForeignKey(Habitacion, null=False, editable=True, verbose_name='habitacion', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, null=False, editable=False, verbose_name='usuario', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=False, editable=False, verbose_name='usuario', on_delete=models.CASCADE, default=1)
     
     class Meta:
         verbose_name = 'Estadia'

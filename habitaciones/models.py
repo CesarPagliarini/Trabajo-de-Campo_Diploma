@@ -19,6 +19,9 @@ class TipoHabitacion(models.Model):
         
     def __str__(self):
         return f"{self.id_tipo_habitacion} - {self.nombre}"                     # En el administrador va a mostrar: 1 - Simple (ejemplo) - Seccion TipoHabitacion
+    
+    def getNombre(self):
+        return f"{self.nombre}"
 
 class EstadoHabitacion(models.Model):
     nro_estado = models.AutoField(primary_key=True, editable=False, verbose_name='nro_estado')
@@ -44,7 +47,7 @@ class Habitacion(models.Model):
         db_table = 'habitaciones' 
         
     def __str__(self):
-        return f"{self.nro_habitacion}"
+        return f"{self.nro_habitacion} - {self.tipo_habitacion.getNombre()}"
     
 
     

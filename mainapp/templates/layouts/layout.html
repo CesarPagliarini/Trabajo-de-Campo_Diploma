@@ -38,6 +38,17 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="">Estadias</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'listado_estadias' %}">Listado de estadias</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'alta_estadia' %}">Nueva estadia</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a href="">Sesion</a>
                     <ul>
                         {% if user.is_superuser %}

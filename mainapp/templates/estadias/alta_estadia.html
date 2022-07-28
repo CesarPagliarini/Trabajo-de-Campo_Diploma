@@ -1,0 +1,19 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+   <h1 class="title">{{titulo}}</h1>
+
+   <form action="" method="POST">
+
+    {% csrf_token %}
+    
+        {{ form.as_p }}
+
+        <input type="submit" value="Guardar" />
+   </form> 
+      
+{% endblock %}

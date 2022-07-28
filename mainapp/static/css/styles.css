@@ -183,6 +183,10 @@ nav > ul > li:hover > ul > li:hover a{
     width: 40%;
 }
 
+.caja{
+    width: 15rem!important;
+}
+
 .box form input,
 .box form label{
     display: block;
