@@ -26,17 +26,19 @@
                 <li>
                     <a href="">Habitaciones</a>
                 </li>
-                <li>
-                    <a href="">Huespedes</a>
-                    <ul>
-                        <li>
-                            <a href="{% url 'listado_huespedes' %}">Listado de huespedes</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'alta_huesped' %}">Nuevo huesped</a>
-                        </li>
-                    </ul>
-                </li>
+                {% if user.username != 'gerencia' %}
+                    <li>
+                        <a href="">Huespedes</a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'listado_huespedes' %}">Listado de huespedes</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'alta_huesped' %}">Nuevo huesped</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}
                 <li>
                     <a href="">Estadias</a>
                     <ul>
@@ -44,7 +46,7 @@
                             <a href="{% url 'listado_estadias' %}">Listado de estadias</a>
                         </li>
                         <li>
-                            <a href="{% url 'alta_estadia' %}">Nueva estadia</a>
+                            <a href="{% url 'alta_estadia_inicio' %}">Nueva estadia</a>
                         </li>
                     </ul>
                 </li>

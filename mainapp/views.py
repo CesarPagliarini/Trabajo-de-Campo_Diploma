@@ -6,7 +6,7 @@ from .forms import RegisterForm, EstadiaForm, EstadiaFormInicial
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required             # Exporta la funcion que atentica previo a entrar a la url
 from django.db.models import Q                                        # Clase para operar con el ORM
-from datetime import timedelta                                        # Necesario para operar con fecha
+from datetime import timedelta, date                                  # Necesario para operar con fecha
 
 
 # Create your views here.
@@ -66,8 +66,6 @@ def logout_user(request):
 
 # Estadias
 
-# Prueba nuevo formulario
-
 @login_required(login_url='login')
 def alta_estadia_inicio(request):
     
@@ -85,9 +83,18 @@ def alta_estadia_inicio(request):
             habitacion_obj = Habitacion.objects.filter(tipo_habitacion = tipo_habitacion).exclude(Q(estadia__fecha_inicio__lte=fecha_final) & Q(estadia__fecha_inicio__gte=fecha_inicial)).exclude(Q(estadia__fecha_fin__gte=fecha_inicial) & Q(estadia__fecha_fin__lte=fecha_final)).exclude(Q(estadia__fecha_inicio__lte=fecha_inicial) & Q(estadia__fecha_fin__gte=fecha_final)).values('nro_habitacion').first()
             
             if habitacion_obj :
-                habitacion = int(habitacion_obj['nro_habitacion'])                                               # Obtengo , del diccionario, el dato de la habitacion 
-                #return HttpResponse(f"{fecha_inicial} - {fecha_final} -  {cantidad_dias} - {habitacion}")   # Debug
-                return redirect('alta_estadia_final', cantidad_dias, habitacion)  
+                habitacion = int(habitacion_obj['nro_habitacion'])                 # Obtengo , del diccionario, el dato de la habitacion 
+
+                dia_inicio = fecha_inicial.day                                            # Conversion fecha inicio de date a integer para pasarla como parametro        
+                mes_inicio = fecha_inicial.month
+                anio_inicio = fecha_inicial.year
+                
+                dia_fin = fecha_final.day                                                    
+                mes_fin = fecha_final.month
+                anio_fin = fecha_final.year
+                
+                #return HttpResponse(f"{dia} - {mes} - {anio} - {cantidad_dias} - {habitacion}")   # Debug
+                return redirect('alta_estadia_final', dia_inicio, mes_inicio, anio_inicio, dia_fin, mes_fin, anio_fin, cantidad_dias, habitacion)  
             else:
                 messages.success(request, 'No se encontraron habitaciones disponibles')
         
@@ -100,11 +107,18 @@ def alta_estadia_inicio(request):
         'cabecera': 'Alta de estadia'
     })
             
+            
 @login_required(login_url='login') 
-def alta_estadia_final(request, cantidad_dias, habitacion):
+def alta_estadia_final(request, dia_inicio, mes_inicio, anio_inicio, dia_fin, mes_fin, anio_fin, cantidad_dias, habitacion):
+    
+    fecha_inicio = date(anio_inicio, mes_inicio, dia_inicio)
+    fecha_fin = date(anio_fin, mes_fin, dia_fin)
     
     formulario = EstadiaForm(initial={'cantidad_dias': cantidad_dias,
                                       'habitacion': habitacion,
+                                      'fecha_inicio': fecha_inicio,
+                                      'fecha_fin': fecha_fin,
+                                      'estado': 1,                                  # Opcion de estado 'Reservada'
                                       })
 
     #return HttpResponse(f"{cantidad_dias} - {habitacion}")   # Debug
@@ -117,42 +131,12 @@ def alta_estadia_final(request, cantidad_dias, habitacion):
             return redirect('listado_estadias')       
         else:
             messages.success(request, 'Fracaso el registro')
-    else:
-        messages.success(request, 'Fracaso la registracion')
             
     return render(request, 'estadias/alta_estadia.html', {
         'form': formulario,
         'titulo': 'Formulario de alta de estadia',
         'cabecera': 'Alta Estadia'
     })           
-            
-            
-#Crear/modificar estadia
-
-@login_required(login_url='login')
-def formulario_estadia(request, id=None):
-    try:
-        estadia = Estadia.objects.get(pk=id)
-    except Estadia.DoesNotExist:
-        estadia = None  
-    
-    if request.method == 'POST':
-        formulario = EstadiaForm(request.POST, instance=estadia)
-        
-        if formulario.is_valid():
-            estadia = formulario.save()
-            messages.success(request, 'Registro exitoso')
-            return redirect('listado_estadias')       
-        else:
-            messages.success(request, 'Fracaso el registro')         
-    else:
-        formulario = EstadiaForm(instance=estadia)
-        
-    return render(request, 'estadias/alta_estadia.html', {
-        'form': formulario,
-        'titulo': 'Formulario de alta de estadia',
-        'cabecera': 'Alta Estadia'
-    })
    
     
 # Listar datos de estadia
@@ -174,6 +158,7 @@ def listado_estadias(request):
         'cabecera': 'Listados de estadias',
         'vacio': 'No se encontraron estadias registradas',
     })
+    
     
 # Borar datos de estadia
 @login_required(login_url="login")                                 # Requiere previa autenticación de usuario (login)    

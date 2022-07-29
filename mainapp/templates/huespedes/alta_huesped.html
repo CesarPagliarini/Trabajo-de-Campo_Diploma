@@ -5,15 +5,19 @@
 {% endblock %}
 
 {% block content %}
-   <h1 class="title">{{titulo}}</h1>
+    {% if perms.auth.usuario %}
+        <h1 class="title">{{titulo}}</h1>
 
-   <form action="{% url 'alta_huesped' %}" method="POST">
+        <form action="{% url 'alta_huesped' %}" method="POST">
 
-    {% csrf_token %}
+            {% csrf_token %}
     
-        {{ form.as_p }}
+            {{ form.as_p }}
 
-        <input type="submit" value="Guardar" />
-   </form> 
-      
+            <input type="submit" value="Guardar" />
+        </form> 
+    {% else %}
+        <a href="{% url 'inicio' %}">No tiene autorizacion para esta seccion, click para regresar al inicio</a>
+    {% endif %} 
+       
 {% endblock %}
