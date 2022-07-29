@@ -37,7 +37,7 @@ def formularioHuesped(request):
                 mail = mail,
             )
             
-            #return HttpResponse(f"Articulo creado: {huesped.nombre} {huesped.apellido} {huesped.dni} {huesped.pais} {huesped.direccion} {huesped.telefono} {huesped.mail}")   # Debug
+            #return HttpResponse(f"Huesped creado: {huesped.nombre} {huesped.apellido} {huesped.dni} {huesped.pais} {huesped.direccion} {huesped.telefono} {huesped.mail}")   # Debug
         
             huesped.save()                                   # Guarda en la DB al objeto creado.
             messages.success(request, 'Registro exitoso')

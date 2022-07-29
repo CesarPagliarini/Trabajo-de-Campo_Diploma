@@ -53,7 +53,7 @@ class Estadia(models.Model):
         ordering = ['id_estadia']
         
     def __str__(self):
-        return f"{self.id_estadia} - {self.estado.estado}"
+        return f"{self.id_estadia} - {self.estado.estado} - {self.habitacion.nro_habitacion}"
     
 class EstadosDecuentos(models.Model):
     nro_estado = models.AutoField(primary_key=True, editable=False, verbose_name='nro_estado')

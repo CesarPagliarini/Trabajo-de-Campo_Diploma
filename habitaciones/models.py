@@ -49,7 +49,8 @@ class Habitacion(models.Model):
     def __str__(self):
         return f"{self.nro_habitacion} - {self.tipo_habitacion.getNombre()}"
     
-
+    def getNroHabitacion(self):
+        return f"{self.nro_habitacion}"
     
 
     

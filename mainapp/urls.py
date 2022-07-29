@@ -11,4 +11,6 @@ urlpatterns = [
     path('listado_estadias/', views.listado_estadias, name='listado_estadias'),
     path('borrar_estadia/<int:id>', views.borrar_estadia, name="borrar_estadia"),
     path('editar_estadia/<int:id>', views.formulario_estadia, name="editar_estadia"),
+    path('alta_estadia_inicio/', views.alta_estadia_inicio, name='alta_estadia_inicio'),
+    path('alta_estadia_final/<int:cantidad_dias>/<int:habitacion>', views.alta_estadia_final, name='alta_estadia_final'),
 ]
