@@ -21,6 +21,8 @@
             <br/>
             Estadia: {{estadia.id_estadia}}    				    
             <br/>
+            Estado: {{estadia.estado.estado}} 
+            <br/>
             Fecha inicio: {{estadia.fecha_inicio}} 
             <br/>
             Fecha fin: {{estadia.fecha_fin}}
@@ -37,8 +39,8 @@
             <br/>
             <button id='eliminar' ><a href="{% url 'borrar_estadia' id=estadia.id_estadia %}">Eliminar</a></button>
             <button><a href="{% url 'editar_estadia' id=estadia.id_estadia %}">Modificar</a></button>
-            <button class='check'><a href="{% url 'checkin-out_estadia' id=estadia.id_estadia accion="in" %}">Check-in</a></button>
-            <button class='check'><a href="{% url 'checkin-out_estadia' id=estadia.id_estadia accion="out" %}">Check-out</a></button>
+            <button class='check'><a href="{% url 'checkin-out_estadia' id=estadia.id_estadia accion="in" estado=estadia.estado.nro_estado %}">Check-in</a></button>
+            <button class='check'><a href="{% url 'checkin-out_estadia' id=estadia.id_estadia accion="out" estado=estadia.estado.nro_estado %}">Check-out</a></button>
         </article>
         {% empty %}
             <br/>

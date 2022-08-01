@@ -244,30 +244,41 @@ def editar_estadia_final(request, id, habitacion):
 
 
 @login_required(login_url="login")
-def checkin_checkout_estadia(request, id, accion):
+def checkin_checkout_estadia(request, id, accion, estado):
 
-    # Busca la instancia de estadia correpondiente
-    estadia = Estadia.objects.get(pk=id)
-    # Obtiene la instancia de habitacion asociada
-    habitacion = Habitacion.objects.get(pk=estadia.habitacion.nro_habitacion)
+    mensaje = 'vacio'
+    respuesta = ''
+    
+    estadia = Estadia.objects.get(pk=id)        # Busca la instancia de estadia correpondiente
+    habitacion = Habitacion.objects.get(pk=estadia.habitacion.nro_habitacion)   # Obtiene la instancia de habitacion asociada
 
     if accion == 'in':
-        # Obtiene la instancia de estado de habitacion correspondiente
-        estado_estadia = EstadoEstadia.objects.get(pk='2')
-        # Obtiene la instancia del estado de habitacion correcto (Ocupada)
-        estado_habitacion = EstadoHabitacion.objects.get(pk='3')
+        if estado == 1:
+            estado_estadia = EstadoEstadia.objects.get(pk='2')
+            estado_habitacion = EstadoHabitacion.objects.get(pk='3')
+            respuesta = 'ok'
+        else:
+            mensaje = 'La estadia debe poseer estado reservada'
+    elif accion == 'out':
+        if estado == 2:
+            estado_estadia = EstadoEstadia.objects.get(pk='3')
+            estado_habitacion = EstadoHabitacion.objects.get(pk='1')
+            respuesta = 'ok'
+        else:
+            mensaje = 'La estadia debe poseer estado tomada'
+            
+    if respuesta == 'ok':
+        estadia.estado = estado_estadia          # Asigna el valor al campo 'estado' del objeto    
+        habitacion.estado = estado_habitacion
+        estadia.save()                           # Guarda el objeto en la base de datos
+        habitacion.save()
+        return redirect('listado_estadias')
     else:
-        estado_estadia = EstadoEstadia.objects.get(pk='3')
-        estado_habitacion = EstadoHabitacion.objects.get(pk='1')
-
-    # Asigna el valor al campo 'estado' del objeto
-    estadia.estado = estado_estadia
-    habitacion.estado = estado_habitacion
-    # Guarda el objeto en la base de datos
-    estadia.save()
-    habitacion.save()
-
-    return redirect('listado_estadias')
+        return render(request, 'estadias/alta_estadia.html', {
+        'titulo': 'Registro checkin/out',
+        'cabecera': 'Modificacion de estadia',
+        'mensaje': mensaje
+    })
 
 
 # Borar datos de estadia
