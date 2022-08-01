@@ -26,8 +26,8 @@
             <br/>
             Telefono: {{huesped.telefono}}
             <br/>
-            <a href="{% url 'borrar_huesped' id=huesped.dni %}"> Eliminar </a>
-            <a href="{% url 'editar_huesped' id=huesped.dni %}"> Modificar </a>
+            <button id='eliminar'><a href="{% url 'borrar_huesped' id=huesped.dni %}"> Eliminar </a></button>
+            <button><a href="{% url 'editar_huesped' id=huesped.dni %}"> Modificar </a></button>
         </article>
         {% empty %}
             <br/>

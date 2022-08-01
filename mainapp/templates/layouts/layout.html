@@ -51,6 +51,17 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="">Servicios</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'listado_reservas_servicios' %}">Listado de Reservas</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'alta_reserva_servicio_inicio' %}">Nueva reserva</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a href="">Sesion</a>
                     <ul>
                         {% if user.is_superuser %}
@@ -83,6 +94,5 @@
     <footer>
         Sistema de Gestión hotelera, plazas y servicios - {% now 'd/m/Y  H:i:s' %}            <!--La H genera que la hora se muestre en formato de 24hs-->
     </footer>
-
 </body>
 </html>

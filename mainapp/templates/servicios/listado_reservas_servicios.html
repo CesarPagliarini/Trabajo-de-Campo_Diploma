@@ -1,0 +1,37 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+   <h1 class="title">{{titulo}}</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" placeholder="Ingrese Id estadia, Id reserva o Numero de habitacion" name="Buscar" value="{{ request.POST.Buscar }}" />
+        <button type="submit">Buscar</button>
+    
+    <ul>
+        {% for reserva in reservas %}  
+        <article class="huespedes-items">      
+            <br/>
+            Id reserva: {{reserva.id_reserva}}    				    
+            <br/>
+            Servicio: {{reserva.servicio.servicio}}
+            <br/>
+            Fecha reserva: {{reserva.fecha_reserva}}
+            <br/>
+            Estadia: {{reserva.estadia.id_estadia}}
+            <br/>
+            <button id='eliminar'><a href="{% url 'borrar_reserva_servicio' id=reserva.id_reserva %}"> Eliminar </a></button>
+        </article>
+        {% empty %}
+            <br/>
+            <p class="empty">{{ vacio }}</p>
+        {% endfor %}
+    </ul>
+      
+{% endblock %}

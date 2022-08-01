@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Application definition
 
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     'habitaciones.apps.HabitacionesConfig',
     'huespedes.apps.HuespedesConfig',
     'mainapp.apps.MainappConfig',
-    'servicios.apps.ServiciosConfig'
+    'servicios.apps.ServiciosConfig',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

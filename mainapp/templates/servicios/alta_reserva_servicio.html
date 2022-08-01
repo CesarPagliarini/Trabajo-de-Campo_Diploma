@@ -1,0 +1,24 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">{{titulo}}</h1>
+        {% if mensaje|length < 6 %}
+            <form action="" method="POST">
+
+                {% csrf_token %}
+    
+                {{ form.as_p }}
+
+                <input type="submit" value="Guardar" />
+            </form>
+        {% else %}
+            </br>
+            <p class="mensaje">{{mensaje}}</p>
+            </br>
+            <button class="regresar"><a href="{% url 'alta_reserva_servicio_inicio' %}"> Regresar </a></button>
+        {% endif %}
+{% endblock %}

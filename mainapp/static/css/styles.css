@@ -187,6 +187,15 @@ nav > ul > li:hover > ul > li:hover a{
     width: 15rem!important;
 }
 
+.caja2{
+    width: 8rem!important;
+}
+
+.caja3{
+    width: 3rem!important;
+    text-align: center;
+}
+
 .box form input,
 .box form label{
     display: block;
@@ -208,15 +217,40 @@ nav > ul > li:hover > ul > li:hover a{
     padding: 5px;
 }
 
+.regresar,
+a button,
+.check,
 .box form input[type="submit"],
 .box form input[type="button"],
 .box form button{
     padding: 10px;
     margin-top: 5px;
     background-color: #2ba977;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
+    border-radius: 25%;
     color: white;
     transition: 300ms all;
+    /*font-weight: 600;*/
+}
+
+article .check,
+button a{
+    color: white;
+}
+
+ul article .check{
+    background-color: blue;
+}
+
+#eliminar {
+    background-color: red;
+}
+
+.mensaje{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    font-size: large;
+    color: red;
 }
 
 .rojo{

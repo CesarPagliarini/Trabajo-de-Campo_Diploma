@@ -16,20 +16,43 @@ class EstadiaForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'fecha_inicio': forms.TextInput(attrs = {
-                'type' : 'date',
+                'type': 'date',
                 'label': 'Fecha de inicio',
+                'readonly': True,                                # Deja esta campo como de solo lectura
             }),
             'fecha_fin': forms.TextInput(attrs = {
                 'type' : 'date',
                 'label': 'Fecha de finalizacion',
+                'readonly': True,                                # Deja esta campo como de solo lectura
             }),
             'huesped': forms.SelectMultiple(attrs = {
                 'class': 'caja',
             }),
+            'estado': forms.Select(attrs= {
+                'class': 'caja2',
+            }),
+            'habitacion': forms.Select(attrs= {
+                'class': 'caja2',
+            }),
+            'cantidad_dias': forms.TextInput(attrs= {
+                'class': 'caja3',
+                'readonly': True,                               # Deja esta campo como de solo lectura
+            })
         }
+ 
         
-
 class EstadiaFormInicial(forms.Form):
+    id_estadia = forms.IntegerField(
+       label = "Id de estadia",
+       required=False,
+       widget= forms.TextInput(
+            attrs={
+                'type': 'number',
+                'readonly': True,
+              }
+        ),
+    )
+    
     fecha_inicio = forms.DateField(
         label = "Fecha ingreso",
         required=True,
@@ -62,7 +85,10 @@ class EstadiaFormInicial(forms.Form):
         label = "Seleccione tipo de habitacion",
         required = True,
         widget=forms.Select(
-            choices = opciones_habitacion
+            choices = opciones_habitacion,
         )
     )
+    
+    
+
     

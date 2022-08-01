@@ -26,6 +26,11 @@ class ReservaServicioAdmin(admin.ModelAdmin):
         return obj.estado.estado
     get_estado.short_description = 'estado'
     
+    def save_model(self, request, obj, form, change):
+       if not obj.user_id:
+           obj.user_id = request.user.id                   # Si no trae el id de usuario, le asigna el del usuario actual (Logueado)
+       obj.save()                                          # Guarda el objeto del usuario
+        
 admin.site.register(Servicio, ServicioAdmin)
 admin.site.register(EstadoReserva, EstadoReservaAdmin)
 admin.site.register(ReservaServicio, ReservaServicioAdmin)

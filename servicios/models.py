@@ -40,6 +40,7 @@ class ReservaServicio(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='modificado')
     estado = models.ForeignKey(EstadoReserva, verbose_name='estado', on_delete=models.CASCADE)
     estadia = models.ForeignKey(Estadia, verbose_name='estadia', on_delete=models.CASCADE)
+    servicio = models.ForeignKey(Servicio, verbose_name='servicio', on_delete=models.CASCADE)
     user = models.ForeignKey(User, null=False, editable=False, verbose_name='usuario', on_delete=models.CASCADE)
     
     class Meta:
