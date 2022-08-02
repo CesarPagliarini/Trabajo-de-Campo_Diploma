@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sghps',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'campodiploma',
         'HOST': 'localhost',
         'PORT': 3306,
     }

@@ -11,7 +11,7 @@ urlpatterns = [
     path('alta_estadia_final/<int:dia_inicio>/<int:mes_inicio>/<int:anio_inicio>/<int:dia_fin>/<int:mes_fin>/<int:anio_fin>/<int:cantidad_dias>/<int:habitacion>',views.alta_estadia_final, name='alta_estadia_final'),
     path('listado_estadias/', views.listado_estadias, name='listado_estadias'),
     path('borrar_estadia/<int:id>', views.borrar_estadia, name="borrar_estadia"),
-    path('editar_estadia/<int:id>', views.editar_estadia, name="editar_estadia"),
+    path('editar_estadia/<int:id>/<int:estado>', views.editar_estadia, name="editar_estadia"),
     path('editar_estadia_final/<int:id>/<int:habitacion>', views.editar_estadia_final, name="editar_estadia_final"),
     path('checkin-out_estadia/<int:id>/<str:accion>/<int:estado>', views.checkin_checkout_estadia, name="checkin-out_estadia"),
 ]

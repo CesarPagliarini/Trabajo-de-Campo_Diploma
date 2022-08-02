@@ -38,7 +38,7 @@
             Precio por estadia: $ {{estadia.habitacion.tipo_habitacion.precio_por_noche|mul:estadia.cantidad_dias}}
             <br/>
             <button id='eliminar' ><a href="{% url 'borrar_estadia' id=estadia.id_estadia %}">Eliminar</a></button>
-            <button><a href="{% url 'editar_estadia' id=estadia.id_estadia %}">Modificar</a></button>
+            <button><a href="{% url 'editar_estadia' id=estadia.id_estadia estado=estadia.estado.nro_estado%}">Modificar</a></button>
             <button class='check'><a href="{% url 'checkin-out_estadia' id=estadia.id_estadia accion="in" estado=estadia.estado.nro_estado %}">Check-in</a></button>
             <button class='check'><a href="{% url 'checkin-out_estadia' id=estadia.id_estadia accion="out" estado=estadia.estado.nro_estado %}">Check-out</a></button>
         </article>

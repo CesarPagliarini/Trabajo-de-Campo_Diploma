@@ -2,11 +2,11 @@ from genericpath import exists
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib import messages
 from mainapp.models import Estadia
-from servicios.models import ReservaServicio, Servicio
+from servicios.models import ReservaServicio, Servicio, EstadoReserva
 from .forms import ReservaFormInicial, ReservaFormFinal
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from datetime import date
+from datetime import date, datetime
 
 # Create your views here.
 
@@ -33,7 +33,6 @@ def listado_reservas_servicios(request):
     })
 
 # Borar datos de reserva
-
 
 # Requiere previa autenticación de usuario (login)
 @login_required(login_url="login")
@@ -97,6 +96,7 @@ def alta_reserva_inicio(request):
         'titulo': 'Formulario alta de reserva de servicio',
         'cabecera': 'Alta de reserva de servicio',
         'mensaje': mensaje,
+        'boton': 'Continuar'
     })
 
 
@@ -129,4 +129,113 @@ def alta_reserva_servicio_final(request, id_estadia, dia, mes, anio, id_servicio
         'form': formulario,
         'titulo': 'Formulario de alta de estadia',
         'cabecera': 'Alta Estadia',
+        'boton': 'Guardar',
+    })
+
+# Editar Reserva
+@login_required(login_url='login')
+def editar_reserva_servicio(request, id, estado):
+
+    mensaje = ''
+    reserva = get_object_or_404(ReservaServicio, pk=id)
+
+    formulario = ReservaFormInicial(initial={'id_reserva': reserva.id_reserva , 'id_estadia': reserva.estadia.id_estadia, 'fecha_reserva': reserva.fecha_reserva, 'servicio': reserva.servicio})
+    if estado == 1:
+        if request.method == 'POST':
+            formulario = ReservaFormInicial(request.POST)
+
+            # Verifica que los datos sean validos.
+            if formulario.is_valid():
+                data_form = formulario.cleaned_data
+
+                fecha_reserva = data_form['fecha_reserva']
+                servicio = data_form['servicio']
+
+                servicio_obj = Servicio.objects.get(pk=int(servicio))
+                cant_reservas = ReservaServicio.objects.filter(Q(servicio__id_servicio=servicio) & Q(
+                                fecha_reserva=fecha_reserva) & Q(estado__estado='Pendiente')).count()
+
+                if cant_reservas < servicio_obj.maximo_diario:
+                    cod_servicio = servicio_obj.get_codigo()
+                    return redirect('editar_reserva_servicio_final', reserva.id_reserva, cod_servicio)
+                    #return HttpResponse(f"{cod_servicio}")   # Debug
+                else:
+                    mensaje = 'Se alcanzo la cantidad maximo diaria para este servicio'
+    else:
+        mensaje = 'La estadia ya fue tomada o se encuentra vencida, no puede modificarse'
+                        
+    return render(request, 'servicios/alta_reserva_servicio.html', {
+        'form': formulario,
+        'titulo': 'Formulario de alta de estadia - Paso 1',
+        'cabecera': 'Alta de estadia',
+        'mensaje': mensaje,
+        'boton': 'Continuar'
+    })
+    
+@login_required(login_url='login')
+def editar_reserva_servicio_final(request, id, servicio):
+    
+    mensaje = 'vacio'
+    try:
+        reserva = ReservaServicio.objects.get(pk=id)
+        servicio_obj = Servicio.objects.get(pk=servicio)
+    except ReservaServicio.DoesNotExist:
+        reserva = None
+    
+    if request.method == 'POST':
+        formulario = ReservaFormFinal(request.POST, instance=reserva)
+
+        if formulario.is_valid():
+            reserva = formulario.save()
+            reserva.servicio = servicio_obj                                     # Actualizo el campo de la servicio
+            #reserva.user_update = request.user
+            reserva.save()
+
+            return redirect('listado_reservas_servicios')
+        else:
+            messages.success(request, 'Fracaso la edicion')
+    else:
+        formulario = ReservaFormFinal(instance=reserva)
+
+    return render(request, 'servicios/alta_reserva_servicio.html', {
+        'form': formulario,
+        'titulo': 'Edicion de reserva de servicio',
+        'cabecera': 'Modificacion de reserva',
+        'mensaje': mensaje,
+        'boton': 'Guardar',
+    })
+
+# Tomar reserva
+@login_required(login_url="login")
+def tomar_reserva_servicio(request, id, estado):
+    
+    mensaje = 'vacio'
+    try:
+        reserva = ReservaServicio.objects.get(pk=id)
+    except Estadia.DoesNotExist:
+        reserva = None
+    
+    now = datetime.now()
+    
+    if estado == 1:    
+        if reserva.fecha_reserva <  now.date():
+            mensaje = 'La reserva ya no es valida'
+            reserva.estado = EstadoReserva.objects.get(pk='4')
+            reserva.save(commit=False) 
+            #reserva.user_update = request.user
+            reserva.save()
+        elif now.date() < reserva.fecha_reserva:
+            mensaje = f'Reserva no valida para el dia de la fecha. Regresar el dia {reserva.fecha_reserva}'
+        else:
+            reserva.estado = EstadoReserva.objects.get(pk='2')
+            reserva.user = request.user
+            reserva.save()
+            return redirect('listado_reservas_servicios')
+    else:
+        mensaje = 'El estado de la reserva debe ser Pendiente'
+            
+    return render(request, 'servicios/alta_reserva_servicio.html', {
+        'titulo': 'Toma de reserva',
+        'cabecera': 'Modificacion de estado de la reserva',
+        'mensaje': mensaje
     })

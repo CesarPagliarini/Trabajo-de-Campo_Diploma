@@ -39,6 +39,7 @@ def formularioHuesped(request):
             
             #return HttpResponse(f"Huesped creado: {huesped.nombre} {huesped.apellido} {huesped.dni} {huesped.pais} {huesped.direccion} {huesped.telefono} {huesped.mail}")   # Debug
         
+            huesped.user = request.user
             huesped.save()                                   # Guarda en la DB al objeto creado.
             messages.success(request, 'Registro exitoso')
             return redirect('listado_huespedes')             # Redirecciona al listado de Huespedes
@@ -117,8 +118,10 @@ def editar_huesped(request, id):
                 telefono = telefono,
                 mail = mail,
             )
-               
+            
+            #huesped.user_update = request.user   
             huesped.save()                                   # Como el objeto ya existe en la base de datos, actualiza los datos.
+
             messages.success(request, 'Actualización exitoso')
             return redirect('listado_huespedes')             # Redireccion al listado de Huespedes
         

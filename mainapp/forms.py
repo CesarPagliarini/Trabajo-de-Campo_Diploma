@@ -37,6 +37,10 @@ class EstadiaForm(forms.ModelForm):
             'cantidad_dias': forms.TextInput(attrs= {
                 'class': 'caja3',
                 'readonly': True,                               # Deja esta campo como de solo lectura
+            }),
+            'penalizacion': forms.NumberInput(attrs= {
+                'class': 'caja2',
+                'readonly': True,                               # Deja esta campo como de solo lectura
             })
         }
  

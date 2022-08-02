@@ -18,6 +18,9 @@ class Servicio(models.Model):
         
     def __str__(self):
         return f"{self.id_servicio} - {self.servicio}"
+    
+    def get_codigo(self):
+        return f"{self.id_servicio}"
 
 
 class EstadoReserva(models.Model):

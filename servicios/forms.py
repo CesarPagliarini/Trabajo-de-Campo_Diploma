@@ -14,6 +14,17 @@ class ReservaFormFinal(forms.ModelForm):
         }
         
 class ReservaFormInicial(forms.Form):
+    id_reserva = forms.IntegerField(
+       label = "Id de reserva",
+       required=False,
+       widget= forms.TextInput(
+            attrs={
+                'type': 'number',
+                'readonly': True,
+              }
+        ),
+    )
+    
     id_estadia = forms.IntegerField(
        label = "Id de estadia",
        required=False,

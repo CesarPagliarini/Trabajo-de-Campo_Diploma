@@ -13,12 +13,12 @@
     
                 {{ form.as_p }}
 
-                <input type="submit" value="Guardar" />
+                <input type="submit" value={{boton}} />
             </form>
         {% else %}
             </br>
             <p class="mensaje">{{mensaje}}</p>
             </br>
-            <button class="regresar"><a href="{% url 'alta_reserva_servicio_inicio' %}"> Regresar </a></button>
+            <button class="regresar"><a href="{% url 'listado_reservas_servicios' %}"> Regresar </a></button>
         {% endif %}
 {% endblock %}

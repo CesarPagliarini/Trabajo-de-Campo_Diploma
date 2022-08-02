@@ -1,0 +1,38 @@
+{% extends 'layouts/layout.html' %}
+{% load mathfilters %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+   <h1 class="title">{{titulo}}</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" placeholder="Numero de habitacion,tipo habitacion o estado" name="Buscar" value="{{ request.POST.Buscar }}" />
+        <button type="submit">Buscar</button>
+    
+    <ul>
+        {% for habitacion in habitaciones %}  
+        <article class="estadias-items">      
+            <br/>
+            Nro Habitacion: {{habitacion.nro_habitacion}}    				    
+            <br/>
+            Estado: {{habitacion.estado.estado}} 
+            <br/>
+            Tipo Habitacion: {{habitacion.tipo_habitacion.nombre}} 
+            <br/>
+            Precio por noche: {{habitacion.tipo_habitacion.precio_por_noche}}
+            <br/>
+        </article>
+        {% empty %}
+            <br/>
+            <p class="empty">{{ vacio }}</p>
+        {% endfor %}
+        <button class='check'><a href="{% url 'inicio' %}">{{boton}}</a></button>
+    </ul>
+      
+{% endblock %}

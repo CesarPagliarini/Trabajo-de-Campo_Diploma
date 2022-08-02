@@ -1,3 +1,4 @@
+from unicodedata import decimal
 from django.db import models
 from django.contrib.auth.models import User
 from huespedes.models import Huesped
@@ -5,6 +6,22 @@ from habitaciones.models import Habitacion
 
 # Create your models here.
 
+# Aplicacion Singletone
+class Reglamento(models.Model):
+    retiro_anticipado = models.DecimalField(max_digits=3, decimal_places=2, verbose_name='tasa')
+    
+    def __str__(self):
+        return "reglamento"
+    
+    @classmethod
+    def get_instancia(cls):
+        instancia, creado = Reglamento.objects.get_or_create(pk=1, defaults={
+            'retiro_anticipado': 0.99
+            })
+        return instancia
+    
+Reglamento.get_instancia().retiro_anticipado       # Uso de la instanciacion
+      
 class EstadoEstadia(models.Model):
     nro_estado = models.AutoField(primary_key=True, editable=False, verbose_name='nro_estado')
     estado = models.CharField(max_length=10, verbose_name='estado')
@@ -41,10 +58,11 @@ class Estadia(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='creado')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='modificado')
     huesped = models.ManyToManyField(Huesped, verbose_name='Huespedes', blank=False) 
-    forma_pago = models.ForeignKey(FormasPago, null=True, blank=True, editable=True, verbose_name='forma_pago', on_delete=models.CASCADE)
+    #forma_pago = models.ForeignKey(FormasPago, null=True, blank=True, editable=True, verbose_name='forma_pago', on_delete=models.CASCADE)
+    penalizacion = models.DecimalField(null=True, blank=True, max_digits=3, decimal_places=2, verbose_name='penalizacion')
     estado = models.ForeignKey(EstadoEstadia, null=False, editable=True, verbose_name='estado', on_delete=models.CASCADE)
     habitacion = models.ForeignKey(Habitacion, null=False, editable=True, verbose_name='habitacion', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, null=False, editable=False, verbose_name='usuario', on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, null=False, editable=False, verbose_name='usuario', on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'Estadia'
