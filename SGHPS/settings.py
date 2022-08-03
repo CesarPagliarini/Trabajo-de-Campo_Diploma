@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'huespedes.apps.HuespedesConfig',
     'mainapp.apps.MainappConfig',
     'servicios.apps.ServiciosConfig',
+    'restaurantes',
     'mathfilters',
 ]
 

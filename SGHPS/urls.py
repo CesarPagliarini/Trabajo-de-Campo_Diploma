@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include('habitaciones.urls')),
     path('', include('huespedes.urls')),
     path('', include('servicios.urls')),
+    path('', include('restaurantes.urls')),
 ]
 
 # Ruta imagenes
