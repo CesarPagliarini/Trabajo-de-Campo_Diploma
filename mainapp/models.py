@@ -20,7 +20,7 @@ class Reglamento(models.Model):
             })
         return instancia
     
-Reglamento.get_instancia().retiro_anticipado       # Uso de la instanciacion
+#Reglamento.get_instancia().retiro_anticipado       # Uso de la instanciacion
       
 class EstadoEstadia(models.Model):
     nro_estado = models.AutoField(primary_key=True, editable=False, verbose_name='nro_estado')

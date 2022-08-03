@@ -51,6 +51,8 @@ def borrar_reserva_servicio(request, id):
 def alta_reserva_inicio(request):
 
     mensaje = 'vacio'
+    now = datetime.now()
+    
     if request.method == 'POST':
         formulario = ReservaFormInicial(request.POST)
 
@@ -70,18 +72,21 @@ def alta_reserva_inicio(request):
             if estadia != None:
                 if estadia.estado.estado == 'Iniciada':
                     if estadia.fecha_fin > fecha_reserva:
-                        servicio_obj = Servicio.objects.get(pk=id_servicio)
-                        cant_reservas = ReservaServicio.objects.filter(Q(servicio__id_servicio=id_servicio) & Q(
-                            fecha_reserva=fecha_reserva) & Q(estado__estado='Pendiente')).count()
+                        if fecha_reserva > now.date():
+                            servicio_obj = Servicio.objects.get(pk=id_servicio)
+                            cant_reservas = ReservaServicio.objects.filter(Q(servicio__id_servicio=id_servicio) & Q(
+                                fecha_reserva=fecha_reserva) & Q(estado__estado='Pendiente')).count()
 
-                        if cant_reservas < servicio_obj.maximo_diario:
-                            dia = fecha_reserva.day
-                            mes = fecha_reserva.month
-                            anio = fecha_reserva.year
-                            # return HttpResponse(f"{id_estadia} - {id_servicio}")   # Debug
-                            return redirect('alta_reserva_servicio_final', id_estadia, dia, mes, anio, id_servicio)
+                            if cant_reservas < servicio_obj.maximo_diario:
+                                dia = fecha_reserva.day
+                                mes = fecha_reserva.month
+                                anio = fecha_reserva.year
+                                # return HttpResponse(f"{id_estadia} - {id_servicio}")   # Debug
+                                return redirect('alta_reserva_servicio_final', id_estadia, dia, mes, anio, id_servicio)
+                            else:
+                                mensaje = 'Se alcanzo la cantidad máxima de lugares disponibles'
                         else:
-                            mensaje = 'Se alcanzo la cantidad máxima de lugares disponibles'
+                            mensaje = 'La fecha selecciona es anterior  a la fecha actual'
                     else:
                         mensaje = 'La fecha de reserva del servicio debe ser anterior a la finalización de la estadia'
                 else:
