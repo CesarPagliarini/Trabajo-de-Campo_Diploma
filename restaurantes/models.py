@@ -13,15 +13,16 @@ class TipoRestaurante(models.Model):
         db_table = 'tipo_restaurante'
         
     def __str__(self):
-        return f"{self.id_tipo_restaurante}"
+        return f"{self.id_tipo_restaurante} - {self.descripcion}"
 
 
 
 class Restaurante(models.Model):
     id_restaurante = models.AutoField(primary_key=True, editable=False, verbose_name='id_restaurante')
-    nombre = models.CharField(max_length=12, verbose_name='nombre')
+    nombre = models.CharField(max_length=25, verbose_name='nombre')
     tipo_restaurante = models.ForeignKey(TipoRestaurante, verbose_name='tipo_restaurante', on_delete=models.CASCADE)
     cant_mesas = models.IntegerField(verbose_name='cantidad_mesas')
+    precio_base = models.DecimalField(max_digits=4, decimal_places=2, verbose_name='precio_base')
     
     class Meta:
         verbose_name = 'Restaurante'
@@ -29,7 +30,7 @@ class Restaurante(models.Model):
         db_table = 'restaurantes'
     
     def __str__(self):
-        return f"{self.id_restaurante}"
+        return f"{self.id_restaurante} - {self.nombre}"
     
     
 class EstadoReservaRestaurante(models.Model):
@@ -55,15 +56,15 @@ class TurnoReserva(models.Model):
         db_table = 'turnos_reservas'
         
     def __str__(self):
-        return f"{self.id_turno}"
+        return f"{self.id_turno} - {self.horario}"
     
     
 class ReservaRestaurante(models.Model):
     id_reserva = models.AutoField(primary_key=True, editable=False, verbose_name='id_reserva')
-    restaurante = models.ForeignKey(Restaurante, verbose_name='servicio', on_delete=models.CASCADE)
-    estado = models.ForeignKey(EstadoReservaRestaurante, verbose_name='servicio', on_delete=models.CASCADE)
-    turno = models.ForeignKey(TurnoReserva, verbose_name='servicio', on_delete=models.CASCADE)
-    estadia = models.ForeignKey(Estadia, verbose_name='servicio', on_delete=models.CASCADE)
+    restaurante = models.ForeignKey(Restaurante, verbose_name='restaurante', on_delete=models.CASCADE)
+    estado = models.ForeignKey(EstadoReservaRestaurante, verbose_name='estado', on_delete=models.CASCADE)
+    turno = models.ForeignKey(TurnoReserva, verbose_name='turno', on_delete=models.CASCADE)
+    estadia = models.ForeignKey(Estadia, verbose_name='estadia', on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'Reserva Restaurante'
