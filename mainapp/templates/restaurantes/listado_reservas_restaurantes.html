@@ -6,36 +6,43 @@
 
 {% block content %}
    <h1 class="title">{{titulo}}</h1>
+   {% if mensaje|length < 6 %}
+        <form method="POST">
 
-    <form method="POST">
+            {% csrf_token %}
 
-        {% csrf_token %}
-
-        <input type="text" placeholder="Ingrese Id estadia, Id reserva o Numero de habitacion" name="Buscar" value="{{ request.POST.Buscar }}" />
-        <button type="submit">Buscar</button>
-    
-    <ul>
-        {% for reserva in reservas %}  
-        <article class="huespedes-items">      
-            <br/>
-            Id reserva: {{reserva.id_reserva}}    				    
-            <br/>
-            Estado: {{reserva.estado.estado}}    				    
-            <br/>
-            Servicio: {{reserva.servicio.servicio}}
-            <br/>
-            Fecha reserva: {{reserva.fecha_reserva}}
-            <br/>
-            Estadia: {{reserva.estadia.id_estadia}}
-            <br/>
-            <button id='eliminar'><a href="{% url 'borrar_reserva_servicio' id=reserva.id_reserva %}"> Eliminar </a></button>
-            <button><a href="{% url 'editar_reserva_servicio_inicio' id=reserva.id_reserva estado=reserva.estado.nro_estado%}">Modificar</a></button>
-            <button class='check'><a href="{% url 'tomar_reserva_servicio' id=reserva.id_reserva estado=reserva.estado.nro_estado %}">Tomar Reserva</a></button>
-        </article>
-        {% empty %}
-            <br/>
-            <p class="empty">{{ vacio }}</p>
-        {% endfor %}
-    </ul>
-      
+            <input type="text" placeholder="Ingrese Id estadia, Id reserva o nombre del restaurante" name="Buscar" value="{{ request.POST.Buscar }}" />
+            <button type="submit">Buscar</button>
+        
+        <ul>
+            {% for reserva in reservas %}  
+            <article class="huespedes-items">      
+                <br/>
+                Id reserva: {{reserva.id_reserva}}    				    
+                <br/>
+                Estado: {{reserva.estado.estado}}    				    
+                <br/>
+                Restaurante: <a href="{% url 'detalles_restaurante' id=reserva.restaurante.id_restaurante %}">{{reserva.restaurante.nombre}}</a>
+                <br/>
+                Fecha reserva: {{reserva.fecha_reserva}}
+                <br/>
+                Hora reserva: {{reserva.turno.horario}} 
+                <br/>
+                Estadia: {{reserva.estadia.id_estadia}}
+                <br/>
+                <button id='eliminar'><a href="{% url 'borrar_reserva_restaurante' id=reserva.id_reserva %}"> Eliminar </a></button>
+                <button><a href="{% url 'editar_reserva_restaurante_inicio' id=reserva.id_reserva estado=reserva.estado.id_estado%}">Modificar</a></button>
+                <button class='check'><a href="{% url 'tomar_reserva_restaurante' id=reserva.id_reserva estado=reserva.estado.id_estado %}">Tomar Reserva</a></button>
+            </article>
+            {% empty %}
+                <br/>
+                <p class="empty">{{ vacio }}</p>
+            {% endfor %}
+        </ul>
+    {% else %}
+        </br>
+        <p class="mensaje">{{mensaje}}</p>
+        </br>
+        <button class="regresar"><a href="{% url 'listado_reservas_restaurantes' %}"> Regresar </a></button>
+    {% endif %}
 {% endblock %}

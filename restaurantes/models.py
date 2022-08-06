@@ -32,6 +32,9 @@ class Restaurante(models.Model):
     def __str__(self):
         return f"{self.id_restaurante} - {self.nombre}"
     
+    def get_id(self):
+        return f"{self.id_restaurante}"
+    
     
 class EstadoReservaRestaurante(models.Model):
     id_estado = models.AutoField(primary_key=True, editable=False, verbose_name='id_estado')
@@ -61,6 +64,7 @@ class TurnoReserva(models.Model):
     
 class ReservaRestaurante(models.Model):
     id_reserva = models.AutoField(primary_key=True, editable=False, verbose_name='id_reserva')
+    fecha_reserva = models.DateField(null=False, verbose_name='fecha_reserva')
     restaurante = models.ForeignKey(Restaurante, verbose_name='restaurante', on_delete=models.CASCADE)
     estado = models.ForeignKey(EstadoReservaRestaurante, verbose_name='estado', on_delete=models.CASCADE)
     turno = models.ForeignKey(TurnoReserva, verbose_name='turno', on_delete=models.CASCADE)

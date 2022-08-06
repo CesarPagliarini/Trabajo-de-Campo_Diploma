@@ -1,0 +1,29 @@
+{% extends 'layouts/layout.html' %}
+{% load mathfilters %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+   <h1 class="title">{{titulo}}</h1>
+    
+    <ul>
+        <article class="huespedes-items">      
+            <br/>
+            Nombre: {{restaurante.nombre}}				    
+            <br/>
+            Tipo Restaurante: {{restaurante.tipo_restaurante.descripcion}}
+            <br/>
+            Cantidad de mesas: {{restaurante.cant_mesas}}
+            <br/>
+            Precio base: {{restaurante.precio_base}}
+            <br/>
+            <br/>
+            <br/>
+            Cantidad de mesas disponible para hoy: {{cant_turnos|mul:restaurante.cant_mesas|sub:reservas}}
+            <br/>
+        </article>
+    </ul>
+      
+{% endblock %}

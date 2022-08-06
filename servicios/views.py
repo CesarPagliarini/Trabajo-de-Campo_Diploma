@@ -1,4 +1,3 @@
-from genericpath import exists
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib import messages
 from mainapp.models import Estadia

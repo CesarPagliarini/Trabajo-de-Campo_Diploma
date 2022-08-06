@@ -67,11 +67,25 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="">Restaurantes</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'listado_reservas_restaurantes' %}">Listado de Reservas</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'alta_reserva_restaurante_inicio' %}">Nueva Reserva</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a href="">Sesion</a>
                     <ul>
                         {% if user.is_superuser %}
                             <li>
                                 <a href="{% url 'register' %}">Registro de usuarios</a>
+                            </li>
+                            <li>
+                                <a href="">Permisos</a>
                             </li>
                         {% endif %}
                         <li>
