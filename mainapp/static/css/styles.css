@@ -196,6 +196,15 @@ nav > ul > li:hover > ul > li:hover a{
     text-align: center;
 }
 
+#caja_permisos{
+    width: 34rem!important;
+    height: 12rem!important;
+}
+
+#caja_grupos{
+    width: 10rem!important;
+}
+
 .box form input,
 .box form label{
     display: block;

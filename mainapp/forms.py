@@ -8,7 +8,21 @@ from .models import Estadia
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User                                                                           # Se basa en el model User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'is_staff']    # Los campos se pueden ver desde la tabla auth_user en la base de datos
+        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'is_staff', 'user_permissions', 'groups', 'is_active']    # Los campos se pueden ver desde la tabla auth_user en la base de datos
+        widgets = {
+            'user_permissions': forms.SelectMultiple(attrs = {
+                'id': 'caja_permisos',
+            }),
+            'groups': forms.SelectMultiple(attrs = {
+                'id': 'caja_grupos',
+            }),
+            'is_active': forms.CheckboxInput(attrs= {
+                'default': 'checked',
+            }),
+            'is_staff': forms.CheckboxInput(attrs={
+                'label': 'Es administrador?',
+            }),
+        }
           
 class EstadiaForm(forms.ModelForm):
     class Meta:
