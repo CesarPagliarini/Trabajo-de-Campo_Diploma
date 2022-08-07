@@ -1,0 +1,36 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+   <h1 class="title">{{titulo}}</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" placeholder="Ingrese el nombre de usuario a buscar" name="Buscar" value="{{ request.POST.Buscar }}" />
+        <button type="submit">Buscar</button>
+    
+    <ul>
+        {% for usuario in usuarios %}  
+        <article class="huespedes-items">  
+            <br/>
+            Username: {{usuario.username}}    				        
+            <br/>
+            Nombre: {{usuario.first_name}} {{usuario.last_name}}
+            <br/>
+            Activo: {{usuario.is_active}}
+            <br/>
+            Administrador: {{usuario.is_staff}}
+            <br/>
+        </article>
+        {% empty %}
+            <br/>
+            <p class="empty">{{ vacio }}</p>
+        {% endfor %}
+    </ul>
+      
+{% endblock %}

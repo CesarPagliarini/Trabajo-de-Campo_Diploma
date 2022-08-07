@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 # Necesario para operar con fecha
 from datetime import datetime, timedelta, date
-
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -41,6 +41,21 @@ def register_page(request):
     return render(request, 'users/register.html', {
         'title': 'Registro',
         'register_form': register_form
+    })
+
+# Listar datos de usuarios
+@login_required(login_url="login")
+def listado_usuarios(request):
+    solicitud = request.POST.get('Buscar')
+    usuarios = User.objects.all()
+    if solicitud:
+        usuarios = User.objects.filter(username=solicitud).distinct()              # Especifica que sean resultados diferentes
+
+    return render(request, 'users/listado_usuarios.html', {
+        'usuarios': usuarios,
+        'titulo': 'Usuarios',
+        'cabecera': 'Listados de usuarios',
+        'vacio': 'No se encontraro ningun usuario registradas con ese username',
     })
 
 
