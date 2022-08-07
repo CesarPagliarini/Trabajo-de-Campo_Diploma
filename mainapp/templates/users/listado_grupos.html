@@ -1,0 +1,32 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+   <h1 class="title">{{titulo}}</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" placeholder="Ingrese el nombre del grupor" name="Buscar" value="{{ request.POST.Buscar }}" />
+        <button type="submit">Buscar</button>
+    
+    <ul>
+        {% for grupo in grupos %}  
+        <article class="huespedes-items">
+            </br>
+            Id: {{grupo.id}}
+            </br>
+            Nombre: <a href="{% url 'modificar_grupo' id=grupo.id %}">{{grupo.name}}</a>  
+            <br/>
+        </article>
+        {% empty %}
+            <br/>
+            <p class="empty">{{ vacio }}</p>
+        {% endfor %}
+    </ul>
+      
+{% endblock %}

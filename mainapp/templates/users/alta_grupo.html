@@ -13,12 +13,12 @@
         <form method="post" action="">
             {% csrf_token %}
 
-            {% for field in register_form %}
+            {% for field in formulario %}
                 <label>{{field.label}}</label>
                 {{field}}
             {% endfor %}
-            <input type="submit" value="Registrarse" />
-            <button id='eliminar'><a href="{% url 'listado_usuarios' %}"> Cancelar </a></button>
+            <input type="submit" value="Guardar" />
+            <button id='eliminar'><a href="{% url 'listado_grupos' %}"> Cancelar </a></button>
         </form>
     {% else %}
         <a href="{% url 'inicio' %}">No tiene autorizacion para esta seccion, click para regresar al inicio</a>

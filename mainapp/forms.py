@@ -1,18 +1,15 @@
 from dataclasses import fields
 from random import choices
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.models import User, Group
 from django import forms
 from .models import Estadia
 
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User                                                                           # Se basa en el model User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'is_staff', 'user_permissions', 'groups', 'is_active']    # Los campos se pueden ver desde la tabla auth_user en la base de datos
+        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'is_staff', 'groups', 'is_active']    # Los campos se pueden ver desde la tabla auth_user en la base de datos
         widgets = {
-            'user_permissions': forms.SelectMultiple(attrs = {
-                'id': 'caja_permisos',
-            }),
             'groups': forms.SelectMultiple(attrs = {
                 'id': 'caja_grupos',
             }),
@@ -23,6 +20,27 @@ class RegisterForm(UserCreationForm):
                 'label': 'Es administrador?',
             }),
         }
+        
+class RegistroModificacionForm(UserChangeForm):
+    class Meta:
+        model = User   
+        fields = ['username', 'first_name', 'last_name', 'email', 'is_staff', 'groups', 'is_active']
+        widgets = {
+            'groups': forms.SelectMultiple(attrs= {
+                'id': 'caja_grupos',
+            })
+        }
+
+class GrupoForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = '__all__'
+        widgets = {
+            'permissions': forms.SelectMultiple(attrs = {
+                'id': 'caja_permisos',
+            }),
+                
+        }        
           
 class EstadiaForm(forms.ModelForm):
     class Meta:

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib import messages
 from mainapp.models import Estadia, EstadoEstadia, Reglamento
 from habitaciones.models import Habitacion, EstadoHabitacion
-from .forms import RegisterForm, EstadiaForm, EstadiaFormInicial
+from .forms import RegisterForm, EstadiaForm, EstadiaFormInicial, RegistroModificacionForm, GrupoForm
 from django.contrib.auth import authenticate, login, logout
 # Exporta la funcion que atentica previo a entrar a la url
 from django.contrib.auth.decorators import login_required
@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 # Necesario para operar con fecha
 from datetime import datetime, timedelta, date
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 # Create your views here.
 
@@ -25,19 +25,27 @@ def index(request):
 
 # Requiere previa autenticación de usuario (login)
 @login_required(login_url="login")
-def register_page(request):
+def register_page(request, id=None):
 
-    register_form = RegisterForm()
-
+    try:
+        usuario = User.objects.get(pk=id)
+        registro = RegistroModificacionForm
+    except User.DoesNotExist:
+        usuario = None
+        registro = RegisterForm
+        
     if request.method == 'POST':
-        register_form = RegisterForm(request.POST)
+        register_form = registro(request.POST, instance=usuario)
 
         if register_form.is_valid():
-            register_form.save()
+            usuario = register_form.save()
             messages.success(request, 'Te has registrado correctamente')
 
-            return redirect('inicio')
+            return redirect('listado_usuarios')
 
+    else:
+        register_form = registro(instance=usuario)
+        
     return render(request, 'users/register.html', {
         'title': 'Registro',
         'register_form': register_form
@@ -57,8 +65,8 @@ def listado_usuarios(request):
         'cabecera': 'Listados de usuarios',
         'vacio': 'No se encontraro ningun usuario registradas con ese username',
     })
-
-
+    
+    
 def login_page(request):
 
     if request.method == 'POST':
@@ -82,6 +90,49 @@ def logout_user(request):
     logout(request)
     return redirect('login')
 
+
+#Grupos
+
+@login_required(login_url="login")
+def alta_grupo(request, id=None):
+
+    try:
+        grupo = Group.objects.get(pk=id)
+    except Group.DoesNotExist:
+        grupo = None
+        
+    if request.method == 'POST':
+        formulario = GrupoForm(request.POST, instance=grupo)
+
+        if formulario.is_valid():
+            grupo = formulario.save()
+            messages.success(request, 'Te has registrado correctamente')
+
+            return redirect('listado_grupos')
+
+    else:
+        formulario = GrupoForm(instance=grupo)
+        
+    return render(request, 'users/alta_grupo.html', {
+        'title': 'Registro',
+        'formulario': formulario
+    })
+    
+    
+# Listar datos de grupos
+@login_required(login_url="login")
+def listado_grupos(request):
+    solicitud = request.POST.get('Buscar')
+    grupos = Group.objects.all()
+    if solicitud:
+        grupos = Group.objects.filter(name=solicitud).distinct()              # Especifica que sean resultados diferentes
+
+    return render(request, 'users/listado_grupos.html', {
+        'grupos': grupos,
+        'titulo': 'Grupos',
+        'cabecera': 'Listados de Grupos',
+        'vacio': 'No se encontraron grupos registradas con ese nombre',
+    })
 
 # Estadias
 

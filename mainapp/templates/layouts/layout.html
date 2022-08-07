@@ -88,7 +88,16 @@
                                 <a href="{% url 'listado_usuarios' %}">Listado de usuarios</a>
                             </li>
                             <li>
-                                <a href="">Permisos</a>
+                                <a href="{% url 'listado_grupos' %}">Listado de grupos</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'alta_grupo' %}">Agregar Grupo</a>
+                            </li>
+                            <li>
+                                <a href="">Usuarios</a>
+                            </li>
+                            <li>
+                                <a href="">Grupos</a>
                             </li>
                         {% endif %}
                         <li>

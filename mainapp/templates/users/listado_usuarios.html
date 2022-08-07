@@ -16,9 +16,11 @@
     
     <ul>
         {% for usuario in usuarios %}  
-        <article class="huespedes-items">  
+        <article class="huespedes-items">
+            </br>
+            Id: {{usuario.id}}  
             <br/>
-            Username: {{usuario.username}}    				        
+            Username: <a href="{% url 'modificar_usuario' id=usuario.id %}">{{usuario.username}}</a>    				        
             <br/>
             Nombre: {{usuario.first_name}} {{usuario.last_name}}
             <br/>
