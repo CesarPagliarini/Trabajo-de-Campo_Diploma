@@ -85,6 +85,13 @@ def login_page(request):
         'title': 'Identificate',
     })
 
+@login_required(login_url="login")                  # Requiere previa autenticación de usuario (login)
+def borrar_usuario(request, id):
+    usuario = get_object_or_404(User, pk=id)     # Verifica que el id que le pase exista. Si es TRUE, trae los datos de la DB
+    usuario.delete()                                # Elimina el registro de la base de datos
+
+    return redirect('listado_usuarios')
+
 
 def logout_user(request):
     logout(request)

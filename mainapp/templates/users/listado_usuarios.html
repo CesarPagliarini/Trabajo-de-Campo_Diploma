@@ -28,6 +28,8 @@
             <br/>
             Administrador: {{usuario.is_staff}}
             <br/>
+            <button id='eliminar'><a href="{% url 'borrar_usuario' id=usuario.id %}"> Eliminar </a></button>
+            <button id='regresar'><a href="{% url 'listado_usuarios' %}"> Cancelar </a></button>
         </article>
         {% empty %}
             <br/>

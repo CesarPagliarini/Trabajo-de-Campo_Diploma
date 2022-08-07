@@ -7,6 +7,7 @@ urlpatterns = [
     path('registro/', views.register_page, name='register'),
     path('modificar_usuario/<int:id>', views.register_page, name='modificar_usuario'),
     path('listado_usuarios/', views.listado_usuarios, name='listado_usuarios'),
+    path('borrar_usuario/<int:id>', views.borrar_usuario, name="borrar_usuario"),
     path('alta_grupo/', views.alta_grupo, name='alta_grupo'),
     path('modificar_grupo/<int:id>', views.alta_grupo, name='modificar_grupo'),
     path('listado_grupos/', views.listado_grupos, name='listado_grupos'),
