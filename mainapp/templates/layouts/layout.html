@@ -82,22 +82,26 @@
                     <ul>
                         {% if user.is_superuser %}
                             <li>
-                                <a href="{% url 'register' %}">Registro de usuarios</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'listado_usuarios' %}">Listado de usuarios</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'listado_grupos' %}">Listado de grupos</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'alta_grupo' %}">Agregar Grupo</a>
-                            </li>
-                            <li>
                                 <a href="">Usuarios</a>
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'register' %}">Registro de usuarios</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'listado_usuarios' %}">Listado de usuarios</a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="">Grupos</a>
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'listado_grupos' %}">Listado de grupos</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'alta_grupo' %}">Agregar Grupo</a>
+                                    </li>
+                                </ul>
                             </li>
                         {% endif %}
                         <li>
