@@ -120,3 +120,13 @@ class FormHuesped(forms.Form):
             }
         )  ,
     )
+    
+   # fecha_creacion = forms.DateTimeField(                                    
+   #     label = "Fecha de creacion",
+   #     required=True,                         
+   #     widget= forms.DateTimeInput(
+   #         attrs={
+   #             'readonly': True
+   #         }
+   #     )  ,
+   # )

@@ -39,7 +39,7 @@ def formularioHuesped(request):
             
             #return HttpResponse(f"Huesped creado: {huesped.nombre} {huesped.apellido} {huesped.dni} {huesped.pais} {huesped.direccion} {huesped.telefono} {huesped.mail}")   # Debug
         
-            huesped.user = request.user
+            #huesped.user = request.user
             huesped.save()                                   # Guarda en la DB al objeto creado.
             messages.success(request, 'Registro exitoso')
             return redirect('listado_huespedes')             # Redirecciona al listado de Huespedes
@@ -61,7 +61,6 @@ def formularioHuesped(request):
 def listado_huespedes(request):
     solicitud = request.POST.get('Buscar')
     huespedes = Huesped.objects.all()                       # Trae todas las instancias del objeto Huesped de la BD
-    
     if solicitud:
         huespedes = Huesped.objects.filter(
             Q(dni__icontains = solicitud) | 
@@ -91,8 +90,10 @@ def borrar_huesped(request, id):
 def editar_huesped(request, id):
     huesped = get_object_or_404(Huesped, pk=id)             # Verifica que el id que le pase exista. Si es TRUE, trae los datos de la DB
       
-    formulario = FormHuesped(initial={'dni': huesped.dni, 'nombre': huesped.nombre, 'apellido': huesped.apellido, 'fecha_nacimiento': huesped.fecha_nacimiento, 'pais': huesped.pais, 'direccion': huesped.direccion, 'telefono': huesped.telefono, 'email': huesped.mail})
-        
+    formulario = FormHuesped(initial={'dni': huesped.dni, 'nombre': huesped.nombre, 'apellido': huesped.apellido, 'fecha_nacimiento': huesped.fecha_nacimiento, 'pais': huesped.pais, 'direccion': huesped.direccion, 'telefono': huesped.telefono, 'email': huesped.mail, 'fecha_creacion': huesped.created_at})
+    
+    #fecha_creacion = huesped.created_at   
+     
     if request.method == 'POST':                            # Recibe los datos del formulario por metodo POST.
         formulario = FormHuesped(request.POST)
     
@@ -107,6 +108,7 @@ def editar_huesped(request, id):
             direccion = data_form['direccion']
             telefono = data_form['telefono']
             mail = data_form['email']
+            #fecha_creacion = data_form['fecha_creacion']
 
             huesped = Huesped(                        # Crea un objeto de tipo Huesped.
                 nombre = nombre,                      # Asigna el contenido de la variables anteriores a cada uno de los campos del objeto Huesped.
@@ -117,9 +119,10 @@ def editar_huesped(request, id):
                 direccion = direccion,
                 telefono = telefono,
                 mail = mail,
+             #   created_at = fecha_creacion,
             )
             
-            #huesped.user_update = request.user   
+            #huesped.user_update = request.user.id   
             huesped.save()                                   # Como el objeto ya existe en la base de datos, actualiza los datos.
 
             messages.success(request, 'Actualización exitoso')

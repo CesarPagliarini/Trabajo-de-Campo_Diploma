@@ -213,7 +213,7 @@ def alta_estadia_final(request, dia_inicio, mes_inicio, anio_inicio, dia_fin, me
 
             if formulario.is_valid():
                 estadia = formulario.save(commit=False)
-                estadia.user = request.user
+                #estadia.user = request.user
                 estadia.save()
                 messages.success(request, 'Registro exitoso')
                 return redirect('listado_estadias')

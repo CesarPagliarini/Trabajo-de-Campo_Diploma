@@ -122,7 +122,7 @@ def alta_reserva_servicio_final(request, id_estadia, dia, mes, anio, id_servicio
         if formulario.is_valid():
             reserva = formulario.save(commit=False)
             # Agrega el usuario que esta manipulando el formulario
-            reserva.user = request.user
+            #reserva.user = request.user
             reserva.save()
             messages.success(request, 'Registro exitoso')
             return redirect('listado_reservas_servicios')

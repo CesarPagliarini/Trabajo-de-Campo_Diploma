@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if perms.auth.usuario %}
+
         <h1 class="title">{{titulo}}</h1>
 
         <form action="{% url 'alta_huesped' %}" method="POST">
@@ -16,8 +16,5 @@
 
             <input type="submit" value="Guardar" />
         </form> 
-    {% else %}
-        <a href="{% url 'inicio' %}">No tiene autorizacion para esta seccion, click para regresar al inicio</a>
-    {% endif %} 
        
 {% endblock %}

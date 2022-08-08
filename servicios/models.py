@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from mainapp.models import Estadia
+from auditoria.models import BaseAuditoria
+from crum import get_current_user
 
 # Create your models here.
 
@@ -36,15 +38,13 @@ class EstadoReserva(models.Model):
         return f"{self.nro_estado} - {self.estado}"
     
            
-class ReservaServicio(models.Model):
+class ReservaServicio(BaseAuditoria):
     id_reserva = models.AutoField(primary_key=True, editable=False, verbose_name='id_reserva')
     fecha_reserva = models.DateField(null=False, verbose_name='fecha_reserva')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='creado')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='modificado')
     estado = models.ForeignKey(EstadoReserva, verbose_name='estado', on_delete=models.CASCADE)
     estadia = models.ForeignKey(Estadia, verbose_name='estadia', on_delete=models.CASCADE)
     servicio = models.ForeignKey(Servicio, verbose_name='servicio', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, null=False, editable=False, verbose_name='usuario', on_delete=models.CASCADE)
+
     
     class Meta:
         verbose_name = 'Reserva Servicio'
@@ -54,3 +54,13 @@ class ReservaServicio(models.Model):
         
     def __str__(self):
         return f"{self.id_reserva} - {self.estado.estado} - {self.fecha_reserva}"	
+
+
+    def save(self, *args, **kwargs):
+        user = get_current_user()
+        if user and not user.pk:
+            user = None
+        if not self.pk:
+            self.user = user
+        self.user_update = user
+        super(ReservaServicio, self).save(*args, **kwargs)
