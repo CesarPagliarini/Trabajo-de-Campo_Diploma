@@ -78,6 +78,20 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="">Auditorias</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'auditoria_estadias' %}">Estadias</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'auditoria_servicios' %}">Servicios</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'alta_reserva_restaurante_inicio' %}">Logueos</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a href="">Sesion</a>
                     <ul>
                         {% if user.is_superuser %}

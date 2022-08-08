@@ -288,6 +288,44 @@ ul article .check{
     margin-top: 5px;
 }
 
+/* Estilos de la tabla */
+
+table {
+    border-collapse: collapse;
+    background-color: #ffffff;
+    max-width:80%;
+    white-space:nowrap; 
+}
+
+table td:hover{
+    background-color: #000000;
+    color: white;
+}
+
+table tr:hover{
+    background-color: #369681;
+}
+
+
+td {
+  padding: 20px;
+  /*border: 2px solid;*/                  /*Si necesito las divisiones*/
+  border-color: #000000;
+}
+
+tr{
+  text-align: center;
+}
+
+.encabezado {
+   background-color: #246355;
+   color: #ffffff;
+   font-weight:lighter;
+}
+
+tr:nth-child(even){
+    background-color: #dddddd;
+}
 
 /* Estilos del footer */
 
