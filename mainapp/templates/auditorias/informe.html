@@ -1,0 +1,49 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+   <h1 class="title">{{titulo}}</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" placeholder="id de estadia , dni huesped o habitacion" name="Buscar" value="{{ request.POST.Buscar }}" />
+        <button type="submit">Buscar</button>
+    
+    <ul>
+        {% for registro in tabla %}  
+        <article class="estadias-items">      
+           <table>
+                <thead>
+                    <tr>
+                        <td>Id Estadia</td>
+                        <td>Fecha inicio</td>
+                        <td>Cantidad de dias</td>
+                        <td>Creado por</td>
+                        <td>Creado</td>
+                        <td>Editado</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{registro.id}}</td>
+                        <td>{{registro.fecha_inicio}}</td>
+                        <td>{{registro.cant_dias}}</td>
+                        <td>{{registro.user.username}}</td>
+                        <td>{{registro.created_at}}</td>
+                        <td>{{registro.updated_at}}</td>
+                    </tr>
+                </tbody>
+           </table> 
+        </article>
+        {% empty %}
+            <br/>
+            <p class="empty">{{ vacio }}</p>
+        {% endfor %}
+    </ul>
+      
+{% endblock %}

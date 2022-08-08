@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'servicios.apps.ServiciosConfig',
     'restaurantes.apps.RestaurantesConfig',
     'mathfilters',
+    'reportes',
+    'auditoria',
 ]
 
 MIDDLEWARE = [
