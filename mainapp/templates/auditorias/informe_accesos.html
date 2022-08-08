@@ -1,0 +1,45 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{cabecera}}
+{% endblock %}
+
+{% block content %}
+   <h1 class="title">{{titulo}}</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input type="text" placeholder="Username o Id" name="Buscar" value="{{ request.POST.Buscar }}" />
+        <button type="submit">Buscar</button>
+    
+    <ul>  
+        <article>      
+           <table id="tabla">
+                <thead class="encabezado">
+                    <tr>
+                        <td>{{campos.0}}</td>
+                        <td>{{campos.1}}</td>
+                        <td>{{campos.2}}</td>
+                        <td>{{campos.3}}</td>
+                    </tr>
+                </thead>
+                {% for registro in tabla %}
+                    <tbody>
+                        <tr>
+                            <td>{{registro.id}}</td>
+                            <td>{{registro.usuario.username}}</td>
+                            <td>{{registro.login}}</td>
+                            <td>{{registro.logout}}</td>
+                        </tr>
+                    </tbody>
+                {% empty %}
+                    <br/>
+                    <p class="empty">{{ vacio }}</p>
+                {% endfor %}
+            </table> 
+        </article>
+    </ul>
+      
+{% endblock %}

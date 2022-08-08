@@ -11,3 +11,19 @@ class BaseAuditoria(models.Model):
     
     class Meta:
         abstract = True
+        
+        
+class ActividadUsuario(models.Model):
+    usuario = models.ForeignKey('auth.User', verbose_name='Usuario', on_delete=models.CASCADE)
+    login = models.DateTimeField(null = True, verbose_name='Login')
+    logout = models.DateTimeField(null = True, verbose_name='Logout')
+    creado = models.DateTimeField(auto_now_add = True, editable= False, verbose_name='Creado')   # Para diferenciar cronologicamente todos los registros
+    
+    class Meta:
+        verbose_name = 'Actividad'
+        verbose_name_plural = 'Actividades'
+        db_table = 'actividades'
+        ordering = ['creado']
+
+    def __str__(self):
+        return self.usuario
