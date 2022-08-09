@@ -9,19 +9,29 @@ from crum import get_current_user
 # Create your models here.
 
 # Aplicacion Singletone
-class Reglamento(models.Model):
-    retiro_anticipado = models.DecimalField(max_digits=3, decimal_places=2, verbose_name='tasa')
+#class Reglamento(models.Model):
+#    retiro_anticipado = models.DecimalField(max_digits=3, decimal_places=2, verbose_name='tasa')
     
-    def __str__(self):
-        return "reglamento"
+#    def __str__(self):
+#        return "reglamento"
     
-    @classmethod
-    def get_instancia(cls):
-        instancia, creado = Reglamento.objects.get_or_create(pk=1, defaults={
-            'retiro_anticipado': 0.99
-            })
-        return instancia
+#    @classmethod
+#    def get_instancia(cls):
+#        instancia, creado = Reglamento.objects.get_or_create(pk=1, defaults={
+#            'retiro_anticipado': 0.99
+#            })
+#        return instancia
+ 
+class Reglamento(object):
+    instance = None
     
+    def __new__(cls):
+        if cls.instance is not None:
+            return cls.instance
+        else:
+            inst = cls.instance = super(Reglamento, cls).__new__()
+            return inst
+          
 #Reglamento.get_instancia().retiro_anticipado       # Uso de la instanciacion
       
 class EstadoEstadia(models.Model):
