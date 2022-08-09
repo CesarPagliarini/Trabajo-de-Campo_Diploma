@@ -3,6 +3,7 @@ from huespedes.forms import FormHuesped                               # Importa 
 from huespedes.models import Huesped                                  # Importa el modelo Huesped
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required             # Exporta la funcion que atentica previo a entrar a la url
+from django.contrib.auth.decorators import permission_required        # Verifica si se cuentan con los permisos necesarios
 from django.db.models import Q                                        # Objeto necesario para busquedas no simples.
 
 # Create your views here.
@@ -58,6 +59,7 @@ def formularioHuesped(request):
 
 # Listar datos de huesped
 @login_required(login_url="login")                          # Requiere previa autenticación de usuario (login)
+@permission_required('huespedes.view_huesped', login_url='listado_huespedes')
 def listado_huespedes(request):
     solicitud = request.POST.get('Buscar')
     huespedes = Huesped.objects.all()                       # Trae todas las instancias del objeto Huesped de la BD
@@ -77,7 +79,8 @@ def listado_huespedes(request):
     
     
 # Borar datos de huesped
-@login_required(login_url="login")                                 # Requiere previa autenticación de usuario (login)    
+@login_required(login_url="login")                                 # Requiere previa autenticación de usuario (login)   
+@permission_required('huespedes.delete_huesped', login_url='listado_huespedes') 
 def borrar_huesped(request, id):
     huesped = get_object_or_404(Huesped, pk=id)                    # Verifica que el id que le pase exista. Si es TRUE, trae los datos de la DB
     huesped.delete()                                               # Elimina el registro de la base de datos
@@ -87,6 +90,7 @@ def borrar_huesped(request, id):
 
 # Editar datos de huesped
 @login_required(login_url="login")                          # Requiere previa autenticación de usuario (login)
+@permission_required('huespedes.change_huesped', login_url='listado_huespedes')
 def editar_huesped(request, id):
     huesped = get_object_or_404(Huesped, pk=id)             # Verifica que el id que le pase exista. Si es TRUE, trae los datos de la DB
       

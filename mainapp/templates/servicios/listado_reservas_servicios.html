@@ -28,9 +28,13 @@
             <br/>
             Estadia: {{reserva.estadia.id_estadia}}
             <br/>
-            <button id='eliminar'><a href="{% url 'borrar_reserva_servicio' id=reserva.id_reserva %}"> Eliminar </a></button>
-            <button><a href="{% url 'editar_reserva_servicio_inicio' id=reserva.id_reserva estado=reserva.estado.nro_estado%}">Modificar</a></button>
-            <button class='check'><a href="{% url 'tomar_reserva_servicio' id=reserva.id_reserva estado=reserva.estado.nro_estado %}">Tomar Reserva</a></button>
+            {% if perms.servicios.delete_reservaservicio %}
+                <button id='eliminar'><a href="{% url 'borrar_reserva_servicio' id=reserva.id_reserva %}"> Eliminar </a></button>
+            {% endif %}
+            {% if servicios.change_reservaservicio %}
+                <button><a href="{% url 'editar_reserva_servicio_inicio' id=reserva.id_reserva estado=reserva.estado.nro_estado%}">Modificar</a></button>
+                <button class='check'><a href="{% url 'tomar_reserva_servicio' id=reserva.id_reserva estado=reserva.estado.nro_estado %}">Tomar Reserva</a></button>
+            {% endif %}
         </article>
         {% empty %}
             <br/>

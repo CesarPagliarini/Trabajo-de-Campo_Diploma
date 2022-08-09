@@ -23,101 +23,131 @@
     <nav>
         <ul>
             {% if user.is_active %}
-                <li>
-                    <a href="">Habitaciones</a>
-                    <ul>
-                        <li>
-                            <a href="{% url 'listado_habitaciones' %}">Listado de habitaciones</a>
-                        </li>
-                    </ul>
-                </li>
+                    <li>
+                        {% if perms.habitaciones.view_habitacion %}
+                            <a href="">Habitaciones</a>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'listado_habitaciones' %}">Listado de habitaciones</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    </li>
                 {% if user.username != 'gerencia' %}
                     <li>
-                        <a href="">Huespedes</a>
-                        <ul>
-                            <li>
-                                <a href="{% url 'listado_huespedes' %}">Listado de huespedes</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'alta_huesped' %}">Nuevo huesped</a>
-                            </li>
-                        </ul>
+                        {% if perms.huespedes.view_huesped %}
+                            <a href="">Huespedes</a>
+                            <ul>
+                                <li>
+                                    {% if perms.huespedes.view_huesped %}
+                                        <a href="{% url 'listado_huespedes' %}">Listado de huespedes</a>
+                                    {% endif %}
+                                </li>
+                                <li>
+                                    {% if perms.huespedes.add_huesped %}
+                                        <a href="{% url 'alta_huesped' %}">Nuevo huesped</a>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        {% endif %}
                     </li>
                 {% endif %}
                 <li>
-                    <a href="">Estadias</a>
-                    <ul>
-                        <li>
-                            <a href="{% url 'listado_estadias' %}">Listado de estadias</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'alta_estadia_inicio' %}">Nueva estadia</a>
-                        </li>
-                    </ul>
+                    {% if perms.mainapp.view_estadia %}
+                        <a href="">Estadias</a>
+                        <ul>
+                            <li>
+                                {% if perms.mainapp.view_estadia %}
+                                    <a href="{% url 'listado_estadias' %}">Listado de estadias</a>
+                                {% endif %}
+                            </li>
+                            <li>
+                                {% if perms.mainapp.add_estadia %}
+                                    <a href="{% url 'alta_estadia_inicio' %}">Nueva estadia</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    {% endif %}
                 </li>
                 <li>
-                    <a href="">Servicios</a>
-                    <ul>
-                        <li>
-                            <a href="{% url 'listado_reservas_servicios' %}">Listado de Reservas</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'alta_reserva_servicio_inicio' %}">Nueva reserva</a>
-                        </li>
-                    </ul>
+                    {% if perms.servicios.view_reservaservicio %}    
+                        <a href="">Servicios</a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'listado_reservas_servicios' %}">Listado de Reservas</a>
+                            </li>
+                            <li>
+                                {% if perms.servicios.add_servicio %}
+                                    <a href="{% url 'alta_reserva_servicio_inicio' %}">Nueva reserva</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    {% endif %}
                 </li>
                 <li>
-                    <a href="">Restaurantes</a>
-                    <ul>
-                        <li>
-                            <a href="{% url 'listado_reservas_restaurantes' %}">Listado de Reservas</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'alta_reserva_restaurante_inicio' %}">Nueva Reserva</a>
-                        </li>
-                    </ul>
+                    {% if perms.restaurantes.view_reservarestaurante %}
+                        <a href="">Restaurantes</a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'listado_reservas_restaurantes' %}">Listado de Reservas</a>
+                            </li>
+                            <li>
+                                {% if perms.restaurantes.add_reservarestaurante %}
+                                    <a href="{% url 'alta_reserva_restaurante_inicio' %}">Nueva Reserva</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    {% endif %}
                 </li>
                 <li>
-                    <a href="">Auditorias</a>
-                    <ul>
-                        <li>
-                            <a href="{% url 'auditoria_estadias' %}">Estadias</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'auditoria_servicios' %}">Servicios</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'auditoria_accesos' %}">Logueos</a>
-                        </li>
-                    </ul>
+                    {% if perms.auditorias.view_auditoria %}
+                        <a href="">Auditorias</a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'auditoria_estadias' %}">Estadias</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'auditoria_servicios' %}">Servicios</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'auditoria_accesos' %}">Logueos</a>
+                            </li>
+                        </ul>
+                    {% endif %}
                 </li>
                 <li>
                     <a href="">Sesion</a>
                     <ul>
-                        {% if user.is_superuser %}
                             <li>
-                                <a href="">Usuarios</a>
-                                <ul>
-                                    <li>
-                                        <a href="{% url 'register' %}">Registro de usuarios</a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'listado_usuarios' %}">Listado de usuarios</a>
-                                    </li>
-                                </ul>
+                                {% if perms.auth.view_user %}
+                                    <a href="">Usuarios</a>
+                                    <ul>
+                                        <li>
+                                            {% if perms.auth.add_user %}
+                                                <a href="{% url 'register' %}">Registro de usuarios</a>
+                                            {% endif %}
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'listado_usuarios' %}">Listado de usuarios</a>
+                                        </li>
+                                    </ul>
+                                {% endif %}
                             </li>
                             <li>
-                                <a href="">Grupos</a>
-                                <ul>
-                                    <li>
-                                        <a href="{% url 'listado_grupos' %}">Listado de grupos</a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'alta_grupo' %}">Agregar Grupo</a>
-                                    </li>
-                                </ul>
+                                {% if perms.auth.view_group %}
+                                    <a href="">Grupos</a>
+                                    <ul>
+                                        <li>
+                                            <a href="{% url 'listado_grupos' %}">Listado de grupos</a>
+                                        </li>
+                                        <li>
+                                            {% if perms.auth.add_group %}
+                                                <a href="{% url 'alta_grupo' %}">Agregar Grupo</a>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                {% endif %}
                             </li>
-                        {% endif %}
                         <li>
                             <a href="{% url 'logout' %}">Cerrar sesion</a>
                         </li>

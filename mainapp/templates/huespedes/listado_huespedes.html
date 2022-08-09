@@ -26,8 +26,12 @@
             <br/>
             Telefono: {{huesped.telefono}}
             <br/>
-            <button id='eliminar'><a href="{% url 'borrar_huesped' id=huesped.dni %}"> Eliminar </a></button>
-            <button><a href="{% url 'editar_huesped' id=huesped.dni %}"> Modificar </a></button>
+            {% if perms.huespedes.delete_huesped %}
+                <button id='eliminar'><a href="{% url 'borrar_huesped' id=huesped.dni %}"> Eliminar </a></button>
+            {% endif %}
+            {% if perms.huespedes.change_huesped %}
+                <button><a href="{% url 'editar_huesped' id=huesped.dni %}"> Modificar </a></button>
+            {% endif %}
         </article>
         {% empty %}
             <br/>

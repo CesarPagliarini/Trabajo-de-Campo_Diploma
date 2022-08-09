@@ -30,9 +30,13 @@
                 <br/>
                 Estadia: {{reserva.estadia.id_estadia}}
                 <br/>
-                <button id='eliminar'><a href="{% url 'borrar_reserva_restaurante' id=reserva.id_reserva %}"> Eliminar </a></button>
-                <button><a href="{% url 'editar_reserva_restaurante_inicio' id=reserva.id_reserva estado=reserva.estado.id_estado%}">Modificar</a></button>
-                <button class='check'><a href="{% url 'tomar_reserva_restaurante' id=reserva.id_reserva estado=reserva.estado.id_estado %}">Tomar Reserva</a></button>
+                {% if restaurantes.delete_reservarestaurante %}
+                    <button id='eliminar'><a href="{% url 'borrar_reserva_restaurante' id=reserva.id_reserva %}"> Eliminar </a></button>
+                {% endif %}
+                {% if restaurantes.change_reservarestaurante %}
+                    <button><a href="{% url 'editar_reserva_restaurante_inicio' id=reserva.id_reserva estado=reserva.estado.id_estado%}">Modificar</a></button>
+                    <button class='check'><a href="{% url 'tomar_reserva_restaurante' id=reserva.id_reserva estado=reserva.estado.id_estado %}">Tomar Reserva</a></button>
+                {% endif %}
             </article>
             {% empty %}
                 <br/>
