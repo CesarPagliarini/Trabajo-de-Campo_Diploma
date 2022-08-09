@@ -35,6 +35,8 @@ class Restaurante(models.Model):
     def get_id(self):
         return f"{self.id_restaurante}"
     
+    def getNombre(self):
+        return f"{self.nombre}"
     
 class EstadoReservaRestaurante(models.Model):
     id_estado = models.AutoField(primary_key=True, editable=False, verbose_name='id_estado')
@@ -77,3 +79,4 @@ class ReservaRestaurante(models.Model):
         
     def __str__(self):
         return f"{self.id_reserva}"
+    

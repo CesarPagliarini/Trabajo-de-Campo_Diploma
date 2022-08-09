@@ -1,0 +1,81 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block content %}
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
+            El grafico muestra la distribucion respecto a las reservas de restaurantes en las estadias.
+        </p>
+    </figure>
+
+    <script>
+        Highcharts.chart('container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Reservas en restaurantes'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Bendita Costilla',
+                    y: 3,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Pasion por las brasas',
+                    y: 1
+                },  {
+                    name: 'Pujol',
+                    y: 2
+                }, {
+                    name: 'Narisawa',
+                    y: 1
+                }, {
+                    name: 'Attica',
+                    y: 2
+                },  {
+                    name: 'Biko',
+                    y: 1
+                }, {
+                    name: 'Nahm',
+                    y: 2
+                }, {
+                    name: 'Combal Zero',
+                    y: 1
+                }, {
+                    name: 'Piazza Duomo',
+                    y: 2
+                }]
+            }]
+        });
+    </script>
+
+{% endblock %}

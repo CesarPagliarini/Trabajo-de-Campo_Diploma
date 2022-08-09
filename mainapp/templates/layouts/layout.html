@@ -11,6 +11,10 @@
     
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </head>
 
 <body>
@@ -111,6 +115,17 @@
                             </li>
                             <li>
                                 <a href="{% url 'auditoria_accesos' %}">Logueos</a>
+                            </li>
+                        </ul>
+                </li>
+                <li>
+                        <a href="">Reportes</a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'reporte_restaurantes' %}">Restaurantes</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'reporte_servicios' %}">Servicios</a>
                             </li>
                         </ul>
                     {% endif %}
